@@ -12,27 +12,47 @@ generator dbml {
   provider = "prisma-dbml-generator"
 }
 
-model User {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
-  password  String
+model Person {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  nickname  String?
   firstname String?
   lastname  String?
-  posts     Post[]
-  role      Role
+  title     String?
+  twitter   String?
+  projects  Project[]
+  User      User[]
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model User {
+  id         String     @id @default(cuid())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  role       Role
+  email      String     @unique
+  password   String
+  nickname   String
+  ethAddress String?
+  ens        String?
+  person     Person     @relation(fields: [personId], references: [id])
+  resources  Resource[]
+  personId   String
+}
+
+model Resource {
+  id        String       @id @default(cuid())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
   published Boolean
+  type      ResourceEnum
   title     String
   content   String?
-  author    User?    @relation(fields: [authorId], references: [id])
+  fileUrl   String?
+  author    User?        @relation(fields: [authorId], references: [id])
   authorId  String?
+  projects  Project[]
+  lessons   Lesson[]
 }
 
 model Category {
@@ -55,22 +75,109 @@ model ProjectCategories {
   categoryId String?
 }
 
+model Risk {
+  id        String   @id @default(cuid())
+  projectId String?
+  name      String
+  Project   Project? @relation(fields: [projectId], references: [id])
+}
+
+model Feature {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  name         String
+  introduction String
+  description  String
+  project      Project? @relation(fields: [projectId], references: [id])
+  projectId    String?
+}
+
 model Project {
-  id          String              @id @default(cuid())
-  name        String
-  description String
-  website     String
-  twitter     String?
-  github      String?
-  avatar      String?
-  image       String?
-  categories  ProjectCategories[]
-  createdAt   Int?
-  updatedAt   Int?
+  id                  String              @id @default(cuid())
+  name                String
+  introduction        String?
+  description         String
+  website             String
+  twitter             String?
+  discord             String?
+  github              String?
+  logo                String?
+  image               String?
+  features            Feature[]
+  developerDocs       DeveloperDoc[]
+  // TODO: should we also have resources on the project level
+  resources           Resource[]
+  // comments -> discord channels for that
+  risks               Risk[]
+  lessons             Lesson[]
+  parentProjectId     String?
+  subprojects         Project[]           @relation("ProjectSubprojects")
+  parentProject       Project?            @relation("ProjectSubprojects", fields: [parentProjectId], references: [id])
+  founders            Person[]
+  competitors         Project[]           @relation("ProjectCompetitors")
+  categories          ProjectCategories[]
+  // coming from github
+  technologies        String[]
+  developmentActivity String[]
+  //  first commit date ?
+  projectCreationDate String?
+  // coming from uniswap subgraph
+  ticker              String?
+  price               String?
+  // stored in S3 ?
+  whitePaper          String?
+  demoVideo           String?
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  projectCompetitor   Project?            @relation("ProjectCompetitors", fields: [projectCompetitorId], references: [id])
+  projectCompetitorId String?
+}
+
+model DeveloperDoc {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  official  Boolean
+  url       String
+  Project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?
+}
+
+model Lesson {
+  id           String     @id @default(cuid())
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  name         String
+  description  String
+  introduction String
+  // TODO: use case entity to track projects by use-case
+  useCases     String[]
+  mechanisms   String
+  tokenomics   String
+  strengths    String[]
+  weaknesses   String[]
+  resources    Resource[]
+  quests       String[]
+  challenges   String[]
+  bounties     String[]
+  project      Project?   @relation(fields: [projectId], references: [id])
+  projectId    String?
 }
 
 enum Role {
   ADMIN
   CREATOR
   USER
+}
+
+enum ResourceEnum {
+  WORKSHOP
+  CONFTALK
+  TUTORIAL
+  ARTICLE
+  REVIEW
+  INTERVIEW
+  PODCAST
 }

@@ -1,10 +1,11 @@
 import * as dotenv from 'dotenv';
 import pgFormat from 'pg-format';
-import { Category, PrismaClient } from '@prisma/client';
+import { Category, PrismaClient, Project } from '@prisma/client';
 import { HttpService } from '@nestjs/common';
 import { getEverestCategoriesQuery } from '../src/graphql/everest/everest-categories';
 import { getEverestProjectsQuery } from '../src/graphql/everest/everest-project';
 
+type ProjectsWithCategoryIds = Project & { categories: string[] }[];
 const prisma = new PrismaClient();
 const http = new HttpService();
 
@@ -22,12 +23,12 @@ async function main() {
     return [{ ...category, parentCategoryId: parentCategory?.id }];
   }).flat();
 
-  // const createdCategories = await prisma.category.createMany({
-  //   skipDuplicates: true,
-  //   data: allEverestCategories
-  // });
+  const createdCategories = await prisma.category.createMany({
+    skipDuplicates: true,
+    data: allEverestCategories
+  });
 
-  // console.log({ createdCategories });
+  console.log({ createdCategories });
   const getAllEverestProjects = async (first = 100, skip = 0, alreadyFoundProjects = []) => {
     return http.post(process.env.EVEREST_SUBGRAPH_API_URL, {
       query: getEverestProjectsQuery,
@@ -47,17 +48,19 @@ async function main() {
   const allProjects = await getAllEverestProjects();
   console.log({ allProjects: allProjects.length })
 
-  const allEverestProjects = allProjects.map(({ categories, ...project }: any) => {
+  const allEverestProjects = (withCategories = true): Project[] | ProjectsWithCategoryIds => allProjects.map(({ categories, ...project }) => {
     if (categories && categories.length > 0) {
-      return {
-        ...project,
-        // categories: categories.map(cat => {
-        //   if (cat.id && cat.subcategories && cat.subcategories.length > 0) {
-        //    return [cat.id, ...cat.subcategories.map(sub => sub.id)]
-        //   }
-        //   return [cat?.id]
-        // }).flat()
-      }
+      return withCategories
+        ? {
+            ...project,
+            categories: categories.map(cat => {
+              if (cat.id && cat.subcategories && cat.subcategories.length > 0) {
+              return [cat.id, ...cat.subcategories.map(sub => sub.id)]
+              }
+              return [cat?.id]
+            }).flat()
+          }
+        : project
     }
     return null
   }).filter(project => {
@@ -66,11 +69,24 @@ async function main() {
   })
   console.log(allEverestProjects)
 
-  // TODO: regen db migration + link categories to projects + optimize this ****
-  const createdProjects = await Promise.all(allEverestProjects.map(project => prisma.project.create({
-    data: project
-  })))
+  const createdProjects = await prisma.project.createMany({
+    data: allEverestProjects(false),
+    skipDuplicates: true
+  })
+
   console.log(createdProjects)
+
+  const projectCategoryRel = allEverestProjects().map(
+    (project) => project.categories.map(categoryId => ({ projectId: project.id, categoryId }))
+  ).flat()
+
+  console.log({projectCategoryRel})
+
+  const linkProjectsToCategories = await prisma.projectCategories.createMany({
+    data: projectCategoryRel,
+    skipDuplicates: true
+  })
+  console.log(linkProjectsToCategories)
 
   // const user1 = await prisma.user.create({
   //   data: {

@@ -2,27 +2,47 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
+Table Person {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  nickname String
+  firstname String
+  lastname String
+  title String
+  twitter String
+  projects Project [not null]
+  User User [not null]
+}
+
 Table User {
   id String [pk]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
+  role Role [not null]
   email String [unique, not null]
   password String [not null]
-  firstname String
-  lastname String
-  posts Post [not null]
-  role Role [not null]
+  nickname String [not null]
+  ethAddress String
+  ens String
+  person Person [not null]
+  resources Resource [not null]
+  personId String [not null]
 }
 
-Table Post {
+Table Resource {
   id String [pk]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   published Boolean [not null]
+  type ResourceEnum [not null]
   title String [not null]
   content String
+  fileUrl String
   author User
   authorId String
+  projects Project [not null]
+  lessons Lesson [not null]
 }
 
 Table Category {
@@ -45,18 +65,103 @@ Table ProjectCategories {
   categoryId String
 }
 
+Table Risk {
+  id String [pk]
+  projectId String
+  name String [not null]
+  Project Project
+}
+
+Table Feature {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  introduction String [not null]
+  description String [not null]
+  project Project
+  projectId String
+}
+
 Table Project {
   id String [pk]
   name String [not null]
+  introduction String
   description String [not null]
   website String [not null]
   twitter String
+  discord String
   github String
-  avatar String
+  logo String
   image String
+  features Feature [not null]
+  developerDocs DeveloperDoc [not null]
+  resources Resource [not null]
+  risks Risk [not null]
+  lessons Lesson [not null]
+  parentProjectId String
+  subprojects Project [not null]
+  parentProject Project
+  founders Person [not null]
+  competitors Project [not null]
   categories ProjectCategories [not null]
-  createdAt Int
-  updatedAt Int
+  technologies String [not null]
+  developmentActivity String [not null]
+  projectCreationDate String
+  ticker String
+  price String
+  whitePaper String
+  demoVideo String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  projectCompetitor Project
+  projectCompetitorId String
+}
+
+Table DeveloperDoc {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  official Boolean [not null]
+  url String [not null]
+  Project Project
+  projectId String
+}
+
+Table Lesson {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  description String [not null]
+  introduction String [not null]
+  useCases String [not null]
+  mechanisms String [not null]
+  tokenomics String [not null]
+  strengths String [not null]
+  weaknesses String [not null]
+  resources Resource [not null]
+  quests String [not null]
+  challenges String [not null]
+  bounties String [not null]
+  project Project
+  projectId String
+}
+
+Table PersonToProject {
+  projectsId String [ref: > Project.id]
+  foundersId String [ref: > Person.id]
+}
+
+Table ProjectToResource {
+  projectsId String [ref: > Project.id]
+  resourcesId String [ref: > Resource.id]
+}
+
+Table LessonToResource {
+  lessonsId String [ref: > Lesson.id]
+  resourcesId String [ref: > Resource.id]
 }
 
 Enum Role {
@@ -65,10 +170,34 @@ Enum Role {
   USER
 }
 
-Ref: Post.authorId > User.id
+Enum ResourceEnum {
+  WORKSHOP
+  CONFTALK
+  TUTORIAL
+  ARTICLE
+  REVIEW
+  INTERVIEW
+  PODCAST
+}
+
+Ref: User.personId > Person.id
+
+Ref: Resource.authorId > User.id
 
 Ref: Category.parentCategoryId > Category.id
 
 Ref: ProjectCategories.projectId > Project.id
 
 Ref: ProjectCategories.categoryId > Category.id
+
+Ref: Risk.projectId > Project.id
+
+Ref: Feature.projectId > Project.id
+
+Ref: Project.parentProjectId > Project.id
+
+Ref: Project.projectCompetitorId > Project.id
+
+Ref: DeveloperDoc.projectId > Project.id
+
+Ref: Lesson.projectId > Project.id

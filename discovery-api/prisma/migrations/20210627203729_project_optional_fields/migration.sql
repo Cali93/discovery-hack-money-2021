@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "Project" ALTER COLUMN "demoVideo" DROP NOT NULL,
+ALTER COLUMN "introduction" DROP NOT NULL,
+ALTER COLUMN "price" DROP NOT NULL,
+ALTER COLUMN "projectCreationDate" DROP NOT NULL,
+ALTER COLUMN "ticker" DROP NOT NULL,
+ALTER COLUMN "whitePaper" DROP NOT NULL;
