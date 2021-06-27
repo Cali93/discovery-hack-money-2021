@@ -4,7 +4,7 @@ import { AppController } from './controllers/app.controller';
 import { AppService } from './services/app.service';
 import { AuthModule } from './resolvers/auth/auth.module';
 import { UserModule } from './resolvers/user/user.module';
-import { PostModule } from './resolvers/post/post.module';
+import { ResourceModule } from './resolvers/resource/resource.module';
 import { AppResolver } from './resolvers/app.resolver';
 import { DateScalar } from './common/scalars/date.scalar';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -36,7 +36,7 @@ import { ProjectModule } from './resolvers/project/project.module';
     }),
     AuthModule,
     UserModule,
-    PostModule,
+    ResourceModule,
     CategoryModule,
     ProjectModule
   ],

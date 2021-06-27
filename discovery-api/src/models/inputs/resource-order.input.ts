@@ -1,7 +1,7 @@
 import { InputType, registerEnumType } from '@nestjs/graphql';
 import { Order } from '../../common/order/order';
 
-export enum PostOrderField {
+export enum ResourceOrderField {
   id = 'id',
   createdAt = 'createdAt',
   updatedAt = 'updatedAt',
@@ -10,12 +10,12 @@ export enum PostOrderField {
   content = 'content',
 }
 
-registerEnumType(PostOrderField, {
-  name: 'PostOrderField',
-  description: 'Properties by which post connections can be ordered.',
+registerEnumType(ResourceOrderField, {
+  name: 'ResourceOrderField',
+  description: 'Properties by which resource connections can be ordered.',
 });
 
 @InputType()
-export class PostOrder extends Order {
-  field: PostOrderField;
+export class ResourceOrder extends Order {
+  field: ResourceOrderField;
 }

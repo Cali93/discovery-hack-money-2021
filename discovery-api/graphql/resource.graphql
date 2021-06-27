@@ -1,0 +1,55 @@
+query UserResources {
+  userResources(userId: "USER_ID") {
+    ...ResourceData
+  }
+}
+
+query PublishedResourcesConnection {
+  publishedResources(first: 20, orderBy: { field: title, direction: desc }) {
+    totalCount
+    edges {
+      cursor
+      node {
+        ...ResourceData
+        author {
+          ...UserData
+        }
+      }
+    }
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}
+
+mutation CreateResource {
+  createResource(data: { content: "Hello", title: "New Resource" }) {
+    ...ResourceData
+  }
+}
+
+subscription SubscriptionResource {
+  resourceCreated {
+    ...ResourceData
+  }
+}
+
+fragment ResourceData on Resource {
+  id
+  createdAt
+  updatedAt
+  published
+  title
+  content
+}
+
+fragment UserData on User {
+  id
+  email
+  firstname
+  lastname
+  role
+}

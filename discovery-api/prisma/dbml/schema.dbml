@@ -12,7 +12,7 @@ Table Person {
   title String
   twitter String
   projects Project [not null]
-  User User [not null]
+  user User [not null]
 }
 
 Table User {
@@ -20,9 +20,8 @@ Table User {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   role Role [not null]
-  email String [unique, not null]
-  password String [not null]
-  nickname String [not null]
+  email String [unique]
+  password String
   ethAddress String
   ens String
   person Person [not null]
@@ -40,7 +39,7 @@ Table Resource {
   content String
   fileUrl String
   author User
-  authorId String
+  authorId String [not null]
   projects Project [not null]
   lessons Lesson [not null]
 }
@@ -125,7 +124,7 @@ Table DeveloperDoc {
   name String [not null]
   official Boolean [not null]
   url String [not null]
-  Project Project
+  project Project
   projectId String
 }
 

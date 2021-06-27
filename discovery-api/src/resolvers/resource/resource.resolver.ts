@@ -1,6 +1,6 @@
-import { PrismaService } from './../../prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import { PaginationArgs } from '../../common/pagination/pagination.args';
-import { PostIdArgs } from '../../models/args/post-id.args';
+import { ResourceIdArgs } from '../../models/args/resource-id.args';
 import { UserIdArgs } from '../../models/args/user-id.args';
 import {
   Resolver,
@@ -11,12 +11,12 @@ import {
   Subscription,
   Mutation,
 } from '@nestjs/graphql';
-import { Post } from '../../models/post.model';
-import { PostOrder } from '../../models/inputs/post-order.input';
-import { PostConnection } from 'src/models/pagination/post-connection.model';
+import { Resource } from '../../models/resource.model';
+import { ResourceOrder } from '../../models/inputs/resource-order.input';
+import { ResourceConnection } from 'src/models/pagination/resource-connection.model';
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PubSub } from 'graphql-subscriptions/';
-import { CreatePostInput } from './dto/createPost.input';
+import { CreateResourceInput } from './dto/createResource.input';
 import { UserEntity } from 'src/decorators/user.decorator';
 import { User } from 'src/models/user.model';
 import { GqlAuthGuard } from 'src/guards/gql-auth.guard';
@@ -24,48 +24,49 @@ import { UseGuards } from '@nestjs/common';
 
 const pubSub = new PubSub();
 
-@Resolver((of) => Post)
-export class PostResolver {
+@Resolver((of) => Resource)
+export class ResourceResolver {
   constructor(private prisma: PrismaService) {}
 
-  @Subscription((returns) => Post)
-  postCreated() {
-    return pubSub.asyncIterator('postCreated');
+  @Subscription((returns) => Resource)
+  resourceCreated() {
+    return pubSub.asyncIterator('resourceCreated');
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation((returns) => Post)
-  async createPost(
+  @Mutation((returns) => Resource)
+  async createResource(
     @UserEntity() user: User,
-    @Args('data') data: CreatePostInput
+    @Args('data') data: CreateResourceInput
   ) {
-    const newPost = this.prisma.post.create({
+    const newResource = this.prisma.resource.create({
       data: {
+        type: data.type,
         published: true,
         title: data.title,
         content: data.content,
         authorId: user.id,
       },
     });
-    pubSub.publish('postCreated', { postCreated: newPost });
-    return newPost;
+    pubSub.publish('resourceCreated', { resourceCreated: newResource });
+    return newResource;
   }
 
-  @Query((returns) => PostConnection)
-  async publishedPosts(
+  @Query((returns) => ResourceConnection)
+  async publishedResources(
     @Args() { skip, after, before, first, last }: PaginationArgs,
     @Args({ name: 'query', type: () => String, nullable: true })
     query: string,
     @Args({
       name: 'orderBy',
-      type: () => PostOrder,
+      type: () => ResourceOrder,
       nullable: true,
     })
-    orderBy: PostOrder
+    orderBy: ResourceOrder
   ) {
     const a = await findManyCursorConnection(
       (args) =>
-        this.prisma.post.findMany({
+        this.prisma.resource.findMany({
           include: { author: true },
           where: {
             published: true,
@@ -75,7 +76,7 @@ export class PostResolver {
           ...args,
         }),
       () =>
-        this.prisma.post.count({
+        this.prisma.resource.count({
           where: {
             published: true,
             title: { contains: query || '' },
@@ -86,14 +87,14 @@ export class PostResolver {
     return a;
   }
 
-  @Query((returns) => [Post])
-  userPosts(@Args() id: UserIdArgs) {
+  @Query((returns) => [Resource])
+  userResources(@Args() id: UserIdArgs) {
     return this.prisma.user
       .findUnique({ where: { id: id.userId } })
-      .posts({ where: { published: true } });
+      .resources({ where: { published: true } });
 
     // or
-    // return this.prisma.posts.findMany({
+    // return this.prisma.resources.findMany({
     //   where: {
     //     published: true,
     //     author: { id: id.userId }
@@ -101,13 +102,13 @@ export class PostResolver {
     // });
   }
 
-  @Query((returns) => Post)
-  async post(@Args() id: PostIdArgs) {
-    return this.prisma.post.findUnique({ where: { id: id.postId } });
+  @Query((returns) => Resource)
+  async resource(@Args() id: ResourceIdArgs) {
+    return this.prisma.resource.findUnique({ where: { id: id.resourceId } });
   }
 
   @ResolveField('author')
-  async author(@Parent() post: Post) {
-    return this.prisma.post.findUnique({ where: { id: post.id } }).author();
+  async author(@Parent() resource: Resource) {
+    return this.prisma.resource.findUnique({ where: { id: resource.id } }).author();
   }
 }

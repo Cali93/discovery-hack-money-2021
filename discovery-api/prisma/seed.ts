@@ -76,8 +76,11 @@ async function main() {
 
   console.log(createdProjects)
 
+  // TODO: use reduce here to deduplicate
   const projectCategoryRel = allEverestProjects().map(
-    (project) => project.categories.map(categoryId => ({ projectId: project.id, categoryId }))
+    (project) => {
+      return project.categories.map(categoryId => ({ projectId: project.id, categoryId })).filter(({ categoryId }, index) => !project.categories.includes(categoryId, index+1))
+    }
   ).flat()
 
   console.log({projectCategoryRel})

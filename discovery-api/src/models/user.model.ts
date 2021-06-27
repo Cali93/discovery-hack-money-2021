@@ -4,7 +4,7 @@ import {
   registerEnumType,
   HideField,
 } from '@nestjs/graphql';
-import { Post } from './post.model';
+import { Resource } from './resource.model';
 import { BaseModel } from './base.model';
 
 export enum Role {
@@ -24,7 +24,7 @@ export class User extends BaseModel {
   firstname?: string;
   lastname?: string;
   role: Role;
-  posts: Post[];
+  resources: Resource[];
   @HideField()
   password: string;
 }

@@ -32,9 +32,11 @@ input ChangePasswordInput {
   oldPassword: String!
 }
 
-input CreatePostInput {
+input CreateResourceInput {
   content: String!
+  published: Boolean = false
   title: String!
+  type: String!
 }
 
 """Date custom scalar type"""
@@ -47,7 +49,7 @@ input LoginInput {
 
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
-  createPost(data: CreatePostInput!): Post!
+  createResource(data: CreateResourceInput!): Resource!
   login(data: LoginInput!): Auth!
   refreshToken(token: String!): Token!
   signup(data: SignupInput!): Auth!
@@ -69,44 +71,12 @@ type PageInfo {
   startCursor: String
 }
 
-type Post {
-  author: User!
-  content: String!
-
-  """Identifies the date and time when the object was created."""
-  createdAt: Date!
-  id: ID!
-  published: Boolean!
-  title: String!
-
-  """Identifies the date and time when the object was last updated."""
-  updatedAt: Date!
-}
-
-type PostConnection {
-  edges: [PostEdge!]
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-type PostEdge {
-  cursor: String!
-  node: Post!
-}
-
-input PostOrder {
-  direction: OrderDirection!
-  field: PostOrderField!
-}
-
-"""Properties by which post connections can be ordered."""
-enum PostOrderField {
-  content
-  createdAt
-  id
-  published
-  title
-  updatedAt
+input PersonInput {
+  firstname: String
+  lastname: String
+  nickname: String
+  title: String
+  twitter: String
 }
 
 type Project {
@@ -132,9 +102,49 @@ type Query {
   hello(name: String!): String!
   helloWorld: String!
   me: User!
-  post(postId: String!): Post!
-  publishedPosts(after: String, before: String, first: Int, last: Int, orderBy: PostOrder, query: String, skip: Int): PostConnection!
-  userPosts(userId: String!): [Post!]!
+  publishedResources(after: String, before: String, first: Int, last: Int, orderBy: ResourceOrder, query: String, skip: Int): ResourceConnection!
+  resource(resourceId: String!): Resource!
+  userResources(userId: String!): [Resource!]!
+}
+
+type Resource {
+  author: User!
+  content: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  id: ID!
+  published: Boolean!
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
+
+type ResourceConnection {
+  edges: [ResourceEdge!]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type ResourceEdge {
+  cursor: String!
+  node: Resource!
+}
+
+input ResourceOrder {
+  direction: OrderDirection!
+  field: ResourceOrderField!
+}
+
+"""Properties by which resource connections can be ordered."""
+enum ResourceOrderField {
+  content
+  createdAt
+  id
+  published
+  title
+  updatedAt
 }
 
 """User role"""
@@ -145,16 +155,17 @@ enum Role {
 }
 
 input SignupInput {
-  email: String!
-  firstname: String
-  lastname: String
-  password: String!
+  email: String
+  ens: String
+  ethAddress: String
+  password: String
+  person: PersonInput!
 }
 
 type Subscription {
   categoryCreated: Category!
-  postCreated: Post!
   projectCreated: Project!
+  resourceCreated: Resource!
 }
 
 type Token {
@@ -166,8 +177,8 @@ type Token {
 }
 
 input UpdateUserInput {
-  firstname: String
-  lastname: String
+  ens: String
+  ethAddress: String
 }
 
 type User {
@@ -177,7 +188,7 @@ type User {
   firstname: String
   id: ID!
   lastname: String
-  posts: [Post!]!
+  resources: [Resource!]!
   role: Role!
 
   """Identifies the date and time when the object was last updated."""
