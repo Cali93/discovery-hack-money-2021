@@ -1,0 +1,74 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  email String [unique, not null]
+  password String [not null]
+  firstname String
+  lastname String
+  posts Post [not null]
+  role Role [not null]
+}
+
+Table Post {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  published Boolean [not null]
+  title String [not null]
+  content String
+  author User
+  authorId String
+}
+
+Table Category {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  description String [not null]
+  projects ProjectCategories [not null]
+  parentCategoryId String
+  subcategories Category [not null]
+  parentCategory Category
+}
+
+Table ProjectCategories {
+  id String [pk]
+  project Project
+  category Category
+  projectId String
+  categoryId String
+}
+
+Table Project {
+  id String [pk]
+  name String [not null]
+  description String [not null]
+  website String [not null]
+  twitter String
+  github String
+  avatar String
+  image String
+  categories ProjectCategories [not null]
+  createdAt Int
+  updatedAt Int
+}
+
+Enum Role {
+  ADMIN
+  CREATOR
+  USER
+}
+
+Ref: Post.authorId > User.id
+
+Ref: Category.parentCategoryId > Category.id
+
+Ref: ProjectCategories.projectId > Project.id
+
+Ref: ProjectCategories.categoryId > Category.id
