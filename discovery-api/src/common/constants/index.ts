@@ -1,0 +1,1 @@
+export const TMP_HACK_PROJECT_NAMES = ['Aave', '88mph', 'Uniswap', 'The Graph', 'Polygon', 'Chainlink']

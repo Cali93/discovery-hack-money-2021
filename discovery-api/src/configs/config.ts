@@ -7,6 +7,11 @@ const config: Config = {
   everest:{
     apiUrl: process.env.EVEREST_SUBGRAPH_API_URL
   },
+  uniswap:{
+    apiUrl: {
+      v2: process.env.UNISWAP_V2_SUBGRAPH_API_URL
+    }
+  },
   cors: {
     enabled: true,
   },
