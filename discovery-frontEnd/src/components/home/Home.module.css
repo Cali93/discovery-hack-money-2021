@@ -1,0 +1,33 @@
+.root {
+    flex-grow: 1;
+}
+
+.paper {
+    padding: 10px;
+    text-align: 'center';
+    color: white;
+}
+
+.steps {
+    width: 200px;
+    height: 200px;
+}
+
+.steps-description {}
+
+.gridList {
+    flex-wrap: nowrap;
+    transform: 'translateZ(0)';
+}
+
+.title {
+    color: white
+}
+
+.titleBar {
+    background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+}
+
+.media {
+    height: 140;
+}
