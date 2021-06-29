@@ -137,19 +137,19 @@ export const Navbar = withRouter(({ history }) => {
 
             <Button
               className={classes.whiteLink}
-              component={Link} to="/paths">
+              component={Link} to="/courses">
               Community
             </Button>
 
             <Button
               className={classes.whiteLink}
-              component={Link} to="/paths">
+              component={Link} to="/courses">
               Courses
             </Button>
 
             <Button
               className={classes.whiteLink}
-              component={Link} to="/paths">
+              component={Link} to="/courses">
               Get Involved
             </Button>
 
