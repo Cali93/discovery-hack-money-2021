@@ -33,20 +33,21 @@ export default class Home extends Component {
   render() {
     const tileData = [
       {
-        title: "Facebook",
-        img: "https://images.unsplash.com/photo-1620942240269-6e289102d28a?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+        title: "Oasis Network",
+        img: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1490&q=80",
+
       },
       {
-        title: "J.P.Morgan",
-        img: "https://images.unsplash.com/photo-1620942240269-6e289102d28a?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+        title: "Polygon",
+        img: "https://images.unsplash.com/photo-1553484771-371a605b060b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80",
       },
       {
-        title: "Facebook",
-        img: "https://images.unsplash.com/photo-1620942240269-6e289102d28a?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+        title: "Super Fluid",
+        img: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1953&q=80",
       },
       {
-        title: "J.P.Morgan",
-        img: "https://images.unsplash.com/photo-1620942240269-6e289102d28a?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+        title: "Eth Foundation",
+        img: "https://images.unsplash.com/photo-1593080358201-08e4ff5f93d9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTB8fGJsb2NrY2hhaW4lMjB0ZWNob25sb2d5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60",
       },
     ]
 
@@ -261,32 +262,34 @@ export default class Home extends Component {
 
 
 
-            <div className=" partnerships">
-              <h2>Partnerships</h2>
-              <div>
-                <GridList className={styles.gridList} cols={2.5}>
-                  {tileData.map((tile, id) => (
-                    <GridListTile key={id}>
-                      <img src={tile.img} alt={tile.title} />
-                      <GridListTileBar
-                        title={tile.title}
-                        className={
-                          styles.root, styles.titleBar, styles.title
-                        }
-                        actionIcon={
-                          <IconButton aria-label={`star ${tile.title}`}>
-                            <StarBorderIcon className={styles.title} />
-                          </IconButton>
-                        }
-                      />
-                    </GridListTile>
-                  ))}
-                </GridList>
-              </div>
 
-            </div>
           </main>
         </Container>
+
+
+        <div className={styles.partnerships}>
+          <h2 className={styles.partnershipsTittle}>Partnerships</h2>
+          <div>
+            <GridList className={styles.gridList} cols={2.5}>
+              {tileData.map((tile, id) => (
+                <GridListTile key={id}>
+                  <img src={tile.img} alt={tile.title} />
+                  <GridListTileBar
+                    title={tile.title}
+                    className={
+                      styles.root, styles.titleBar, styles.title
+                    }
+                    actionIcon={
+                      <IconButton aria-label={`star ${tile.title}`}>
+                        <StarBorderIcon className={styles.title} />
+                      </IconButton>
+                    }
+                  />
+                </GridListTile>
+              ))}
+            </GridList>
+          </div>
+        </div>
 
       </div>
 

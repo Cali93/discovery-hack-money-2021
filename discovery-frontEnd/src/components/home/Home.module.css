@@ -80,3 +80,16 @@
     left: 4.5em;
     top: 2em;
 }
+
+.partnerships {
+    /* background-color: #006BD6; */
+    background-color: #1a4c7d;
+    padding-bottom: 5rem;
+}
+
+.partnershipsTittle {
+    color: white;
+    font-size: 3rem;
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+}
