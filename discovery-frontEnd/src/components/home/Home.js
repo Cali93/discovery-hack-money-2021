@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import { Container, Button, Paper, Grid, GridList, GridListTile, GridListTileBar, IconButton, Card, CardActionArea, CardMedia, CardActions, } from '@material-ui/core';
+import { Container, Button, Paper, Grid, GridList, GridListTile, GridListTileBar, IconButton, Card, CardActionArea, CardMedia, CardActions, CardContent, Typography, } from '@material-ui/core';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import commnityImg from './../../img/community.png';
 import communityImg from './../../img/a.png';
@@ -9,6 +9,7 @@ import metamakImg from './../../img/metamask.png';
 import exploreImg from './../../img/de-fi.jpeg';
 import learnImg from './../../img/learn.png';
 import dotImg from './../../img/dots.svg';
+import basicsImg from './../../img/basics.jpeg';
 
 
 import styles from './Home.module.css';
@@ -109,45 +110,125 @@ export default class Home extends Component {
 
 
           <section className={styles.featureSection}>
-            <div className="d">
-              <h2 className={styles.getStarted}>Get Started</h2>
-
-              <Grid container spacing={3} className={styles.featuresContainer}>
-                <Grid item xs={12} sm={5}>
-                  <Paper className={useStyles.paper}>
-                    <img src={commnityImg} alt="" className={styles.steps} />
-                    <Button size="small" color="primary">Explore the Basics</Button>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12} sm={5}>
-                  <Paper className={useStyles.paper}>
-                    <img src={commnityImg} alt="" className={styles.steps} />
-                    <Button size="small" color="primary">Start Building</Button>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12} sm={5}>
-                  <Paper className={useStyles.paper}>
-                    <img src={commnityImg} alt="" className={styles.steps} />
-                    <Button size="small" color="primary">Bounty Hub</Button>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12} sm={5}>
-                  <Paper className={useStyles.paper}>
-                    <img src={commnityImg} alt="" className={styles.steps} />
-                    <Button size="small" color="primary">Challenges </Button>
-                  </Paper>
-                </Grid>
-
+            <h2 className={styles.getStarted}>Get Started</h2>
+            <Grid container spacing={2} className={styles.featuresContainer}>
+              <Grid item xs={12} sm={6} align="center" display="inline-block">
+                <Card className={styles.featuresImg}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={styles.media}
+                      image={learnImg}
+                      title="Learn the basics"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Learn the Basics
+                        </Typography>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        Learn how to start using the most popular blockchain Network with JavaScript API and Dicovery platform.
+                        </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      Share
+                      </Button>
+                    <Button size="small" color="primary">
+                      Start Learning
+                      </Button>
+                  </CardActions>
+                </Card>
               </Grid>
 
-            </div>
-          </section>
-          {/* here */}
+              <Grid item xs={12} sm={6} align="center">
+                <Card className={styles.featuresImg}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={styles.media}
+                      image={learnImg}
+                      title="Learn the basics"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Start Building with Blockchain
+                        </Typography>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        Learn how to  building with blockchain technologies abd  start using the most popular blockchain Networks.
+                        </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      Share
+                      </Button>
+                    <Button size="small" color="primary">
+                      Start Learning
+                      </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
 
+              <Grid item xs={12} sm={6} align="center">
+                <Card className={styles.featuresImg}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={styles.media}
+                      image={learnImg}
+                      title="Learn the basics"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Bounty Hub
+                        </Typography>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        Software security researchers are increasingly engaging with internet companies.
+                        </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      Share
+                      </Button>
+                    <Button size="small" color="primary">
+                      Start Learning
+                      </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6} align="center">
+                <Card className={styles.featuresImg}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={styles.media}
+                      image={learnImg}
+                      title="Learn the basics"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Challenges & Prizes
+                        </Typography>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        Learn how to start using the most popular blockchain technologies and  win prizes.
+                        </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      Share
+                      </Button>
+                    <Button size="small" color="primary">
+                      Start Learning
+                      </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+
+            </Grid>
+          </section>
 
           <div className={styles.getStarted}>
             <span className={styles.verticalLine}></span>
-            <h2>Get Started</h2>
+            <h2>Contribute</h2>
             <span className={styles.verticalLine}></span>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>

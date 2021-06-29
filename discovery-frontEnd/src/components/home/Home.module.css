@@ -2,6 +2,14 @@
     flex-grow: 1;
 }
 
+.featuresImg {
+    max-width: 90%;
+}
+
+.media {
+    height: 180px;
+}
+
 .paper {
     padding: 20px 10px;
     text-align: 'center';
@@ -45,15 +53,12 @@
 }
 
 .featureSection {
-    background: #ccd3da;
+    background: #1a4c7d;
     color: white;
     position: relative;
-    margin-top: 7rem;
-    min-height: 850px;
-}
-
-.featuresContainer {
-    justify-content: center;
+    margin-top: 10rem;
+    min-height: 100%;
+    padding-bottom: 60px;
 }
 
 .featureSection:before {

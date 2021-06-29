@@ -24,8 +24,8 @@ export const bannerStyles = makeStyles(theme => ({
   },
   imageBanner: {
     display: 'block',
-    width: '100%',
-    paddingTop: '100px',
+    maxWidth: '100%',
+    maxHeight: '100%',
   },
   title: {
     fontSize: '72px',
