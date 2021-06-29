@@ -2,18 +2,23 @@
     flex-grow: 1;
 }
 
+.featuresImg {
+    max-width: 90%;
+}
+
+.media {
+    height: 180px;
+}
+
 .paper {
-    padding: 10px;
+    padding: 20px 10px;
     text-align: 'center';
-    color: white;
 }
 
 .steps {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
 }
-
-.steps-description {}
 
 .gridList {
     flex-wrap: nowrap;
@@ -24,10 +29,67 @@
     color: white
 }
 
-.titleBar {
-    background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+.welcome {
+    font-size: 4rem;
+    padding-top: 4rem;
 }
 
-.media {
-    height: 140;
+.description {
+    font-size: 1.5rem;
+    text-align: initial;
+    padding-bottom: 5rem;
+}
+
+.getStarted {
+    font-size: 3rem;
+    padding-top: 7rem;
+}
+
+.verticalLine {
+    display: inline-block;
+    border-left: 3px solid #ccc8c8;
+    margin: 0 10px;
+    height: 75px;
+}
+
+.featureSection {
+    background: #1a4c7d;
+    color: white;
+    position: relative;
+    margin-top: 10rem;
+    min-height: 100%;
+    padding-bottom: 60px;
+}
+
+.featureSection:before {
+    content: '';
+    position: absolute;
+    width: 10%;
+    height: 17em;
+    background: #007AF3;
+    left: 0;
+    top: -4em;
+}
+
+.featureSection:after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 20em;
+    background: url(./../../img/dots.svg) no-repeat;
+    left: 4.5em;
+    top: 2em;
+}
+
+.partnerships {
+    /* background-color: #006BD6; */
+    background-color: #1a4c7d;
+    padding-bottom: 5rem;
+}
+
+.partnershipsTittle {
+    color: white;
+    font-size: 3rem;
+    padding-top: 5rem;
+    padding-bottom: 3rem;
 }

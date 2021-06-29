@@ -15,7 +15,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { navbarStyles } from './navbar.styles';
-import logo from '../../../img/logo.png';
+// import logo from '../../../img/logo.png';
+import logo from '../../../img/LogoOfficial.png';
 
 
 export const Navbar = withRouter(({ history }) => {
@@ -136,19 +137,19 @@ export const Navbar = withRouter(({ history }) => {
 
             <Button
               className={classes.whiteLink}
-              component={Link} to="/paths">
+              component={Link} to="/courses">
               Community
             </Button>
 
             <Button
               className={classes.whiteLink}
-              component={Link} to="/paths">
+              component={Link} to="/courses">
               Courses
             </Button>
 
             <Button
               className={classes.whiteLink}
-              component={Link} to="/paths">
+              component={Link} to="/courses">
               Get Involved
             </Button>
 
