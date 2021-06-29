@@ -13,7 +13,8 @@ import basicsImg from './../../img/basics.jpeg';
 
 
 import styles from './Home.module.css';
-import HeroBanner from './heroBanner/HeroBanner'
+import HeroBanner from './heroBanner/HeroBanner';
+import Reviews from './reviews/Reviews';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,9 +104,6 @@ export default class Home extends Component {
               </Grid>
             </Grid>
           </div>
-
-          {/* here */}
-
 
 
 
@@ -226,7 +224,11 @@ export default class Home extends Component {
             </Grid>
           </section>
 
-          <div className={styles.getStarted}>
+
+
+          <Reviews />
+          <br />
+          {/* <div className={styles.getStarted}>
             <span className={styles.verticalLine}></span>
             <h2>Contribute</h2>
             <span className={styles.verticalLine}></span>
@@ -250,7 +252,7 @@ export default class Home extends Component {
 
 
 
-
+ */}
 
           <main>
 
