@@ -4,6 +4,7 @@ import { Category, PrismaClient, Project } from '@prisma/client';
 import { HttpService } from '@nestjs/common';
 import { getEverestCategoriesQuery } from '../src/graphql/everest/everest-categories';
 import { getEverestProjectsQuery } from '../src/graphql/everest/everest-project';
+import { PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID } from '../src/common/constants';
 
 type ProjectWithCategoryIds = Project & { categories: string[] };
 const prisma = new PrismaClient();
@@ -49,6 +50,11 @@ async function main() {
   console.log({ allProjects: allProjects.length })
 
   const allEverestProjects = (withCategories = true): Project[] | ProjectWithCategoryIds[] => allProjects.map(({ categories, ...project }) => {
+    for (let [tokenName, uniTokenId] of PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID) {
+      if (tokenName.toLocaleLowerCase().includes(project.name.toLowerCase())){
+        project.tokenId = uniTokenId;
+      }
+    }
     if (categories && categories.length > 0) {
       return withCategories
         ? {
@@ -63,18 +69,12 @@ async function main() {
         : project
     }
     return null
-  }).filter(project => {
-    console.log(project);
-    return project?.id;
-  })
-  console.log(allEverestProjects)
+  }).filter(project => project?.id)
 
   const createdProjects = await prisma.project.createMany({
     data: allEverestProjects(false),
     skipDuplicates: true
   })
-
-  console.log(createdProjects)
 
   const projectCategoryRelations = allEverestProjects().map(
     (project: ProjectWithCategoryIds) =>
@@ -86,14 +86,13 @@ async function main() {
       }, [])
   ).flat()
 
-  console.log({ projectCategoryRelations })
-
   const linkProjectsToCategories = await prisma.projectCategories.createMany({
     data: projectCategoryRelations,
     skipDuplicates: true
   })
   console.log(linkProjectsToCategories)
-  // TODO: get token list from univ2 and populate our tokens table and add rel to project
+
+  // TODO: format Matic to Polygon
 }
 
 main()

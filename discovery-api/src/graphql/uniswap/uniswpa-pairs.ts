@@ -1,21 +1,15 @@
-export const getEverestProjectsQuery = `
-query getProjects($first: Int, $skip: Int){
-  projects(first: $first, skip: $skip) {
-    id
-    name
-    description
-    website
-    twitter
-    github
-    categories{
+export const getUniswapTokensUSDTPairQuery  = `
+  query getPairs($tokenIds: [String!], $usdtTokenId: String){
+    pairs (where: {token0_in: $tokenIds, token1: $usdtTokenId}){
       id
-      name
-      description
-      subcategories {
+      token0 {
         id
+        symbol
         name
-        description
+        tradeVolume
       }
+      token0Price
+      token1Price
     }
   }
-}`
+`

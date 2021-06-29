@@ -7,7 +7,7 @@ export class Category extends BaseModel {
   description: string
   name: string
   slug: string
-  projects: Project[]
+  projects?: Project[]
   subcategories?: Category[]
   parentCategory: Category
   projectCount: number

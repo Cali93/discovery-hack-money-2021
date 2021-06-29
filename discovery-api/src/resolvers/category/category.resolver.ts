@@ -12,12 +12,13 @@ import { GqlAuthGuard } from 'src/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { Category } from '../../models/category.model';
 import { EverestService } from '../../services/everest.service';
+import { CategoryRepository } from './category.repository';
 
 const pubSub = new PubSub();
 
 @Resolver((of) => Category)
 export class CategoryResolver {
-  constructor(private everest: EverestService) {}
+  constructor(private categoryRepository: CategoryRepository) {}
 
   @Subscription((returns) => Category)
   categoryCreated() {
@@ -31,7 +32,7 @@ export class CategoryResolver {
     // @Args('data') data: CreateCategoryInput
   ) {
     // pubSub.publish('categoryCreated', { categoryCreated: newCategory });
-    return this.everest.getCategories();
+    return this.categoryRepository.getAllCategoriesAndSubCategoriesWithProjects();
   }
 
 }

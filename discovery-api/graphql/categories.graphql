@@ -1,0 +1,26 @@
+query {
+  getCategories {
+    id
+    name
+    description
+    projects {
+      id
+    }
+    subcategories {
+      id
+      name
+      description
+      projects {
+        id
+      }
+      subcategories {
+        id
+        name
+        description
+        projects {
+          id
+        }
+      }
+    }
+  }
+}

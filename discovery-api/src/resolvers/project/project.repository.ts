@@ -46,11 +46,25 @@ export class ProjectRepository {
       categories: p.categories.map(({ category}) => category)
     }))
 
-    const projectNames = projectWithFormattedCategories.map(p => p.name);
-    const projectTokens = await this.univ2.getUniswapTokensByName(projectNames);
-    console.log({ projectTokens })
-    // get the token id name and symbol through the tokens query
-    // getUniTokenIdByName
-    return projectWithFormattedCategories;
+    const tokenIds = projectWithFormattedCategories.filter(p => p.tokenId).map(p => p.tokenId);
+    console.log({tokenIds})
+    const projectsWithTokenPrice = await this.univ2.getUniswapTokensUSDTPairs(tokenIds);
+    console.log({projectsWithTokenPrice})
+    const projectsWithTokenData = projectWithFormattedCategories.map(project => {
+      const projectTokenDetails = projectsWithTokenPrice.find(pair => pair.token0.id === project.tokenId)
+      console.log({projectTokenDetails})
+      if (!projectTokenDetails) return project;
+      return {
+        ...project,
+        token: {
+          id: projectTokenDetails.token0.id,
+          name: projectTokenDetails.token0.name,
+          symbol: projectTokenDetails.token0.symbol,
+          tradeVolume: projectTokenDetails.token0.tradeVolume,
+          priceUSDT: projectTokenDetails.token1Price
+        }
+      }
+    })
+    return projectsWithTokenData;
   }
 }

@@ -11,6 +11,14 @@ type Auth {
   user: User!
 }
 
+type AuthToken {
+  """JWT access token"""
+  accessToken: String!
+
+  """JWT refresh token"""
+  refreshToken: String!
+}
+
 type Category {
   """Identifies the date and time when the object was created."""
   createdAt: Date!
@@ -19,7 +27,7 @@ type Category {
   name: String!
   parentCategory: Category!
   projectCount: Int!
-  projects: [Project!]!
+  projects: [Project!]
   slug: String!
   subcategories: [Category!]
 
@@ -51,7 +59,7 @@ type Mutation {
   changePassword(data: ChangePasswordInput!): User!
   createResource(data: CreateResourceInput!): Resource!
   login(data: LoginInput!): Auth!
-  refreshToken(token: String!): Token!
+  refreshToken(token: String!): AuthToken!
   signup(data: SignupInput!): Auth!
   updateUser(data: UpdateUserInput!): User!
 }
@@ -89,6 +97,8 @@ type Project {
   id: ID!
   logo: String
   name: String!
+  token: Token
+  tokenId: String
   twitter: String
 
   """Identifies the date and time when the object was last updated."""
@@ -169,11 +179,11 @@ type Subscription {
 }
 
 type Token {
-  """JWT access token"""
-  accessToken: String!
-
-  """JWT refresh token"""
-  refreshToken: String!
+  id: String!
+  name: String!
+  priceUSDT: String!
+  symbol: String!
+  tradeVolume: String!
 }
 
 input UpdateUserInput {

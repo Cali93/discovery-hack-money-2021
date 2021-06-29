@@ -1,5 +1,5 @@
 import { Auth } from '../../models/auth.model';
-import { Token } from '../../models/token.model';
+import { AuthToken } from '../../models/token.model';
 import { LoginInput } from './dto/login.input';
 import {
   Resolver,
@@ -38,7 +38,7 @@ export class AuthResolver {
     };
   }
 
-  @Mutation((returns) => Token)
+  @Mutation((returns) => AuthToken)
   async refreshToken(@Args('token') token: string) {
     return this.auth.refreshToken(token);
   }

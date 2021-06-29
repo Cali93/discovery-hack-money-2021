@@ -66,9 +66,9 @@ Table ProjectCategories {
 
 Table Risk {
   id String [pk]
-  projectId String
   name String [not null]
-  Project Project
+  projectId String
+  project Project
 }
 
 Table Feature {
@@ -78,8 +78,8 @@ Table Feature {
   name String [not null]
   introduction String [not null]
   description String [not null]
-  project Project
   projectId String
+  project Project
 }
 
 Table Project {
@@ -93,6 +93,7 @@ Table Project {
   github String
   logo String
   image String
+  tokenId String
   features Feature [not null]
   developerDocs DeveloperDoc [not null]
   resources Resource [not null]

@@ -10,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PasswordService } from './password.service';
 import { SignupInput } from '../resolvers/auth/dto/signup.input';
 import { Prisma, User } from '@prisma/client';
-import { Token } from '../models/token.model';
+import { AuthToken } from '../models/token.model';
 import { ConfigService } from '@nestjs/config';
 import { SecurityConfig } from 'src/configs/config.interface';
 
@@ -23,7 +23,7 @@ export class AuthService {
     private readonly configService: ConfigService
   ) {}
 
-  async createUser(payload: SignupInput): Promise<Token> {
+  async createUser(payload: SignupInput): Promise<AuthToken> {
     const hashedPassword = await this.passwordService.hashPassword(
       payload.password
     );
@@ -52,7 +52,7 @@ export class AuthService {
     }
   }
 
-  async login(email: string, password: string): Promise<Token> {
+  async login(email: string, password: string): Promise<AuthToken> {
     const user = await this.prisma.user.findUnique({ where: { email } });
 
     if (!user) {
@@ -82,7 +82,7 @@ export class AuthService {
     return this.prisma.user.findUnique({ where: { id } });
   }
 
-  generateTokens(payload: { userId: string }): Token {
+  generateTokens(payload: { userId: string }): AuthToken {
     return {
       accessToken: this.generateAccessToken(payload),
       refreshToken: this.generateRefreshToken(payload)

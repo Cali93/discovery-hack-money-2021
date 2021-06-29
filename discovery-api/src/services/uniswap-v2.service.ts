@@ -1,9 +1,9 @@
 import { Injectable, BadRequestException, HttpService } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { TMP_HACK_PROJECT_NAMES } from '../common/constants';
+import { PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID } from '../common/constants';
 import { UniswapConfig } from '../configs/config.interface';
 import { getUniswapTokensQuery } from '../graphql/uniswap/uniswap-tokens';
-import { Project } from '../models/project.model';
+import { getUniswapTokensUSDTPairQuery } from '../graphql/uniswap/uniswpa-pairs';
 
 @Injectable()
 export class UniswapV2Service {
@@ -12,15 +12,33 @@ export class UniswapV2Service {
     private config: ConfigService
   ) {}
 
-  async getUniswapTokensByName(tokenNames: string[]) {
+  async getUniswapTokensByIds(tokenIds: string[]) {
     try {
       const { apiUrl } = this.config.get<UniswapConfig>('uniswap');
       const { data } = await this.http.post(apiUrl.v2, {
-        // TODO: pagination here & fix hack with mapping or even better -> add tokenId field on project and symbol and contract address
-          query: getUniswapTokensQuery(tokenNames.filter(name => TMP_HACK_PROJECT_NAMES.includes(name))),
-          variables: null
+          query: getUniswapTokensQuery,
+          variables: {
+            tokenIds
+          }
       }).toPromise();
+      console.log(data)
       return data.data.tokens;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+  async getUniswapTokensUSDTPairs(tokenIds: string[]) {
+    try {
+      const { apiUrl } = this.config.get<UniswapConfig>('uniswap');
+      const { data } = await this.http.post(apiUrl.v2, {
+          query: getUniswapTokensUSDTPairQuery,
+          variables: {
+            tokenIds,
+            usdtTokenId: PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID.get('Tether')
+          }
+      }).toPromise();
+      return data.data.pairs;
     } catch (error) {
       console.log(error);
       throw error;
