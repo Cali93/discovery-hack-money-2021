@@ -15,7 +15,6 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { navbarStyles } from './navbar.styles';
-// import logo from '../../../img/logo.png';
 import logo from '../../../img/LogoOfficial.png';
 
 
@@ -112,7 +111,7 @@ export const Navbar = withRouter(({ history }) => {
               className={classes.title}
               variant="h6" noWrap>
               Discovery
-          </Typography>
+            </Typography>
           </Link>
 
           <div className={classes.grow} />
@@ -131,25 +130,25 @@ export const Navbar = withRouter(({ history }) => {
 
             <Button
               className={classes.whiteLink}
-              component={Link} to="/">
-              Technology
+              component={Link} to="/categories">
+              Paths
             </Button>
 
             <Button
               className={classes.whiteLink}
-              component={Link} to="/courses">
+              component={Link} to="/">
               Community
             </Button>
 
             <Button
               className={classes.whiteLink}
-              component={Link} to="/courses">
-              Courses
+              component={Link} to="/categories">
+              Get Started
             </Button>
 
             <Button
               className={classes.whiteLink}
-              component={Link} to="/courses">
+              component={Link} to="/">
               Get Involved
             </Button>
 
