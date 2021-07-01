@@ -15,10 +15,10 @@ export default () => {
             <h1 className={classes.title}>We are redefining the way we learn </h1>
             <p className={classes.description}>
               Next generation decentralized education platform built to support the use and the growth of DeFi projects by interactive learning tools and incentivization programs.
-          </p>
+            </p>
             <Button
               component={Link}
-              to="/courses"
+              to="/categories"
               className={classes.btn}
               variant="contained"
               color="primary">

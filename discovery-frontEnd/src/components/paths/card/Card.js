@@ -22,7 +22,7 @@ export default function CardComponent({ name, description, projects, isCategorie
               Number of projects:
               <Chip size="small" color="primary" label={projects && projects.length ? projects.length : 0} style={{ marginLeft: '5px', cursor: 'pointer' }} />
             </Link> :
-              <Button size="small" variant="contained" color="primary" component={Link} to="/">Details</Button>
+              <Button size="small" variant="contained" color="primary" component={Link} to="/project/1">Details</Button>
           }
         </CardContent>
       </Card>
