@@ -1,76 +1,34 @@
-import React, { Component } from 'react';
-import personImg from './../../../img/person.jpg';
-import styles from './PathsCategories.module.css';
+import { useQuery } from '@apollo/client';
+import React from 'react';
+import { getCategories } from '../../../graphql/categories';
+import { categoriesStyles } from './categories.styles.js';
+import { Grid } from '@material-ui/core';
+import Filter from '../filter/Filter';
+import CardComponent from '../card/Card';
 
-export default class PathsCategories extends Component {
-  render() {
-    return (
-      <div className={styles.getStarted}>
-        <h1>Paths Categories</h1>
-        <h1>Path</h1>
-        <h1>Path</h1>
-        <span className={styles.verticalLine}></span>
-        <h2>Contribute</h2>
-        <span className={styles.verticalLine}></span>
-        <div className={styles.testimonials}>
-          <img src={personImg} alt="Person" />
-          <blockquote>"Discovery will be the biggest platform for newcomers and developers who want to master the newest blockchain technologies, come join us!"</blockquote>
-          <cite>- Joe Doe</cite>
-        </div>
-      </div>
-    );
+export default function PathsCategories() {
+  const { loading, error, data } = useQuery(getCategories);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+  if (data?.getCategories) {
+    console.log('data', data)
   }
+
+
+  return (
+    <div>
+      <Filter headerName={'Discovery Paths Categories'} />
+      <Grid container spacing={3} style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
+        {
+          data && data.getCategories ? data.getCategories.map(({ id, name, description, projects }) => {
+            return (
+              <CardComponent isCategories={true} key={id} name={name} description={description} projects={projects}
+              />
+            )
+          }) : ""
+        }
+      </Grid>
+    </div>
+  )
 }
-
-
-
-// import React, { Component } from 'react';
-// import { Container, Button, Grid, Paper } from '@material-ui/core';
-
-// export default class Paths extends Component {
-//   render() {
-//     return (
-//       <Container maxWidth="lg">
-
-//         <Grid container spacing={3}>
-//           <Grid item xs={12} sm={6}>
-//             <Paper className={classes.paper}>xs=12 sm=6</Paper>
-//           </Grid>
-//           <Grid item xs={12} sm={6}>
-//             <Paper className={classes.paper}>xs=12 sm=6</Paper>
-//           </Grid>
-//         </Grid>
-
-
-//         <header className="">
-//           <div className="">
-//             <h1>Path</h1>
-//             <h1>Path</h1>
-//             <h1>Path</h1>
-
-
-//           </div>
-//           {/* <img src={LandingImg} alt="Landing" className={header__img} /> */}
-//         </header>
-
-//         <main>
-//           <div className="">
-//             <div className="">
-//               {/* <img src={StepsImg} alt="HowitworkImg2" /> */}
-//               <div className="">
-//                 <h2>It easy to find someone to play with!</h2>
-//                 <ol className="">
-//                   <li>Set up your account</li>
-//                   <li>Post an event to meet</li>
-//                   <li>Wait for players to join you</li>
-//                   <li>Meet your players to play with</li>
-//                 </ol>
-//               </div>
-//             </div>
-//           </div>
-
-//         </main>
-//       </Container>
-//     );
-//   }
-// }

@@ -61,7 +61,7 @@ export default class Home extends Component {
             <h2 className={styles.welcome}>Welcome to Discovery</h2>
             <p className={styles.description}>
               An Ecosystem built to support the use and the growth of DeFi projects by enabling participants to actively get involved in the network via theoretical and interactive educational content provided by the active communities of established DeFi projects.
-              </p>
+            </p>
           </div>
 
           <div className="join-section">
@@ -122,19 +122,19 @@ export default class Home extends Component {
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
                         Learn the Basics
-                        </Typography>
+                      </Typography>
                       <Typography variant="body2" color="textSecondary" component="p">
                         Learn how to start using the most popular blockchain Network with JavaScript API and Dicovery platform.
-                        </Typography>
+                      </Typography>
                     </CardContent>
                   </CardActionArea>
                   <CardActions>
                     <Button size="small" color="primary">
                       Share
-                      </Button>
+                    </Button>
                     <Button size="small" color="primary">
                       Start Learning
-                      </Button>
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -150,19 +150,19 @@ export default class Home extends Component {
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
                         Start Building with Blockchain
-                        </Typography>
+                      </Typography>
                       <Typography variant="body2" color="textSecondary" component="p">
                         Learn how to  building with blockchain technologies abd  start using the most popular blockchain Networks.
-                        </Typography>
+                      </Typography>
                     </CardContent>
                   </CardActionArea>
                   <CardActions>
                     <Button size="small" color="primary">
                       Share
-                      </Button>
+                    </Button>
                     <Button size="small" color="primary">
                       Start Learning
-                      </Button>
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -178,19 +178,19 @@ export default class Home extends Component {
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
                         Bounty Hub
-                        </Typography>
+                      </Typography>
                       <Typography variant="body2" color="textSecondary" component="p">
                         Software security researchers are increasingly engaging with internet companies.
-                        </Typography>
+                      </Typography>
                     </CardContent>
                   </CardActionArea>
                   <CardActions>
                     <Button size="small" color="primary">
                       Share
-                      </Button>
+                    </Button>
                     <Button size="small" color="primary">
                       Start Learning
-                      </Button>
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -205,19 +205,19 @@ export default class Home extends Component {
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
                         Challenges & Prizes
-                        </Typography>
+                      </Typography>
                       <Typography variant="body2" color="textSecondary" component="p">
                         Learn how to start using the most popular blockchain technologies and  win prizes.
-                        </Typography>
+                      </Typography>
                     </CardContent>
                   </CardActionArea>
                   <CardActions>
                     <Button size="small" color="primary">
                       Share
-                      </Button>
+                    </Button>
                     <Button size="small" color="primary">
                       Start Learning
-                      </Button>
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
