@@ -17,8 +17,17 @@ export class CategoryRepository {
             projects: true
           }
         },
-        projects: true
+        projects: {
+          include: {
+            project: true
+          }
+        }
       }
-    });
+    }).then(categories => categories.map(
+      ({ projects, ...category }) => ({
+        ...category,
+        projects: projects.map(projectCategory => projectCategory.project)
+      })
+    ));
   }
 }

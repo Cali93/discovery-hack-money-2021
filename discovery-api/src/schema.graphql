@@ -173,7 +173,6 @@ input SignupInput {
 }
 
 type Subscription {
-  categoryCreated: Category!
   projectCreated: Project!
   resourceCreated: Resource!
 }
