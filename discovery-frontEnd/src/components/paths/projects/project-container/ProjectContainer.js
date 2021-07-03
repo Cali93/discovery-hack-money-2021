@@ -11,11 +11,13 @@ import SideBar from '../sideBar/SideBar';
 import Details from '../details/Details';
 import { DecryptedNavItems, MainNavItems } from '../sideBar/NavItems';
 import { useHistory } from 'react-router-dom';
-import { useSideBarStyles } from '../sideBar/sidebar.styles';
+import { projectContainerStyles } from './projectContainer.styles';
+import LessonRoutes from '../details/LessonRoutes'
+
 export default function ProjectContainer() {
   // TODO: replace this with id from props
   const id = 1;
-  const classes = useSideBarStyles();
+  const classes = projectContainerStyles();
   const history = useHistory();
   const match = useRouteMatch();
   const resetLinkStyle = {
@@ -28,7 +30,8 @@ export default function ProjectContainer() {
       <Header />
 
 
-      <Grid container style={{ paddingTop: '30px', paddingLeft: '20px', paddingBottom: '20px' }}>
+      {/* Buttons Gruop for branched, decrypted & Enrolled  */}
+      <Grid container className={classes.gridContainer} >
         <Grid item xs={12} sm={6} style={{ display: 'flex' }}>
           <Link style={resetLinkStyle} to={`/project/${id}`}>
             <ListItem button selected={!isDecrypted}>
@@ -48,22 +51,31 @@ export default function ProjectContainer() {
           </Link>
         </Grid>
 
-        <Grid item xs={12} sm={6} align="right" style={{ paddingRight: '10px' }}>
+        <Grid item xs={12} sm={6} align="right" style={{ paddingRight: '10px', }}>
           <Button
             variant="contained"
             size="large"
             style={{
               backgroundColor: "#21b6ae",
               padding: "12px 30px",
-              fontSize: "18px"
+              fontSize: "15px"
             }}
           >Enroll</Button>
+          <Button
+            component={Link}
+            to="/categories"
+            variant="contained"
+            size="large"
+            style={{
+              backgroundColor: "red",
+              padding: "12px 30px",
+              fontSize: "15px"
+            }}
+          >Exit</Button>
         </Grid>
       </Grid>
 
-
-
-
+      {/* SideBar and Project content */}
       <Grid container style={{ paddingBottom: '250px' }}>
         <Grid item xs={4} sm={2} style={{ display: 'flex' }}>
           <SideBar
@@ -76,7 +88,7 @@ export default function ProjectContainer() {
             classes={classes} />
         </Grid>
         <Grid item xs={20} sm={10} align="left" style={{ paddingLeft: '30px' }}>
-          <Details />
+          <LessonRoutes />
         </Grid>
       </Grid>
     </div >

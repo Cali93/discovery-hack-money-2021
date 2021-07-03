@@ -11,15 +11,26 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar />
-        <Route exact path="/" component={Home} />
 
-        <Route exact path="/register" component={Home} />
-        <Route exact path="/login" component={Home} />
+        <Route exact path="/"><Navbar /><Home /></Route>
+
+
+
+        {/* <Route exact path="/register" component={Home} />
+        <Route exact path="/login" component={Home} /> */}
         <Switch>
-          <Route exact path="/categories" component={Paths} />
+          {/* <Route exact path="/categories" component={Paths} />
           <Route exact path="/subcategories" component={Subcategories} />
           <Route path="/project/:id" component={ProjectContainer} />
+
+          <Route path="/project/:id/:lesson" component={ProjectContainer} /> */}
+
+          <Route exact path="/categories"><Navbar /><Paths /></Route>
+          <Route exact path="/subcategories"><Navbar /><Subcategories /></Route>
+          <Route path="/project/:id" component={ProjectContainer} />
+
+          <Route path="/project/:id/:lesson" component={ProjectContainer} />
+
         </Switch>
         <Footer />
       </div>

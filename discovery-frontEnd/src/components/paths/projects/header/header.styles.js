@@ -10,8 +10,8 @@ export const headerStyles = makeStyles(theme => ({
     color: 'white'
   },
   logo: {
-    maxWidth: 250,
-    maxHeight: 250,
+    maxWidth: 220,
+    maxHeight: 220,
     borderRadius: '50%',
 
   },
@@ -21,8 +21,7 @@ export const headerStyles = makeStyles(theme => ({
     paddingRight: '20px',
   },
   activity: {
-    maxWidth: '100%',
-    maxHeight: '90%',
+    height: '120px',
     paddingRight: '2px',
     position: 'relative',
     '&:hover': {
@@ -33,22 +32,9 @@ export const headerStyles = makeStyles(theme => ({
     },
   },
   imgDescription: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    // background:' rgba(29, 106, 154, 0.72)',
-    color: '#fff',
-
-    opacity: 0,
-
-    /* transition effect. not necessary */
-    // transition: opacity .2s, visibility .2s;
+    marginTop: '-7px',
+    marginRight: '50px',
+    fontSize: '0.9rem',
   },
-  // activity: hover, imgDescription: {
-  //   visibility: 'visible',
-  //   opacity: 1,
-  // },
 }));
 

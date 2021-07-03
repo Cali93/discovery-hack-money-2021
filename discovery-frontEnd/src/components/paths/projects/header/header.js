@@ -15,7 +15,7 @@ export default function Header() {
   const classes = headerStyles();
   return (
 
-    <div className={classes.root}>
+    <div className={classes.root} >
       <Grid container className={classes.mainGrid}>
 
         <Grid item xs={6} sm={3}>
