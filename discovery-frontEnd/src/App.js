@@ -20,6 +20,8 @@ function App() {
           <Route exact path="/categories" component={Paths} />
           <Route exact path="/subcategories" component={Subcategories} />
           <Route path="/project/:id" component={ProjectContainer} />
+          <Route path="/project/:id/:lesson" component={ProjectContainer} />
+          {/* <Route path="/project/:id/dashboard-metrics" component={DashboardMetrics} /> */}
         </Switch>
         <Footer />
       </div>

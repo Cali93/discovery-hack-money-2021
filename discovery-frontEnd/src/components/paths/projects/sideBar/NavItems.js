@@ -11,53 +11,108 @@ import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 import PostsIcon from '@material-ui/icons/LibraryBooksOutlined';
 import LikesIcon from '@material-ui/icons/ThumbUpAltOutlined';
 
-const resetLinkStyle = { textDecoration: 'none', color: 'inherit' };
+const resetLinkStyle = {
+  textDecoration: 'none', color: 'inherit'
+};
 
 export const MainNavItems = ({ history, match }) => {
   console.log('main branced nav items')
   const isActive = (path) => history.location.pathname.includes(path);
+  const id = 1;
   return (
     <div>
-      <Link style={resetLinkStyle} to='/app/posts'>
-        <ListItem button selected={isActive('/app/posts')}>
-          <ListItemIcon>
-            <PostsIcon color={isActive('/app/posts') ? 'secondary' : 'primary'} />
+      <Link style={resetLinkStyle} to={`/project/${id}/dashboard-metrics`}>
+        <ListItem button selected={isActive(`dashboard-metrics`)} >
+          <ListItemIcon >
+            <PostsIcon color={isActive(`dashboard-metrics`) ? 'secondary' : 'primary'} />
           </ListItemIcon>
-          <ListItemText primary='Posts' />
+          <ListItemText primary='Dashboard Metrics' />
         </ListItem>
       </Link>
-      <Link style={resetLinkStyle} to='/app/liked'>
-        <ListItem button selected={isActive('/app/liked')}>
+
+      <Link style={resetLinkStyle} to={`/project/${id}/introduction`}>
+        <ListItem button selected={isActive(`introduction`)}>
           <ListItemIcon>
-            <LikesIcon color={isActive('/app/liked') ? 'secondary' : 'primary'} />
+            <LikesIcon color={isActive(`introduction`) ? 'secondary' : 'primary'} />
           </ListItemIcon>
-          <ListItemText primary='Liked posts' />
+          <ListItemText primary='Introduction' />
         </ListItem>
       </Link>
-      <Link style={resetLinkStyle} to='/app/bookmarks'>
-        <ListItem button selected={isActive('/app/bookmarks')}>
+      <Link style={resetLinkStyle} to={`/project/${id}/governance`} >
+        <ListItem button selected={isActive('governance')}>
           <ListItemIcon>
-            <BookmarksIcon color={isActive('/app/bookmarks') ? 'secondary' : 'primary'} />
+            <BookmarksIcon color={isActive('governance') ? 'secondary' : 'primary'} />
           </ListItemIcon>
-          <ListItemText primary='Bookmarks' />
+          <ListItemText primary='Governance' />
         </ListItem>
       </Link>
-      <Link style={resetLinkStyle} to='/app/users'>
-        <ListItem button selected={isActive('/app/users')}>
+
+      <Link style={resetLinkStyle} to={`/project/${id}/main-products`}>
+        <ListItem button selected={isActive('main-products')}>
           <ListItemIcon>
-            <PeopleIcon color={isActive('/app/users') ? 'secondary' : 'primary'} />
+            <PeopleIcon color={isActive('main-products') ? 'secondary' : 'primary'} />
           </ListItemIcon>
-          <ListItemText primary='Users' />
+          <ListItemText primary='Main Products' />
         </ListItem>
       </Link>
-      <Link style={resetLinkStyle} to='/app/profile'>
-        <ListItem button selected={isActive('/app/profile')}>
+
+      {/* nested list  */}
+      <Link style={resetLinkStyle} to={`/project/${id}/fixed-interest`}>
+        <ListItem button selected={isActive('fixed-interest')}>
           <ListItemIcon>
-            <SettingsIcon color={isActive('/app/profile') ? 'secondary' : 'primary'} />
+            <SettingsIcon color={isActive('fixed-interest') ? 'secondary' : 'primary'} />
           </ListItemIcon>
-          <ListItemText primary='Profile' />
+          <ListItemText primary='Fixed-Interest' />
         </ListItem>
       </Link>
+
+
+      <Link style={resetLinkStyle} to={`/project/${id}/zero-coupon`}>
+        <ListItem button selected={isActive('zero-coupon')}>
+          <ListItemIcon>
+            <SettingsIcon color={isActive('zero-coupon') ? 'secondary' : 'primary'} />
+          </ListItemIcon>
+          <ListItemText primary='Zero Coupon' />
+        </ListItem>
+      </Link>
+
+      <Link style={resetLinkStyle} to={`/project/${id}/floating-rate`}>
+        <ListItem button selected={isActive('floating-rate')}>
+          <ListItemIcon>
+            <SettingsIcon color={isActive('floating-rate') ? 'secondary' : 'primary'} />
+          </ListItemIcon>
+          <ListItemText primary='Floating Rate' />
+        </ListItem>
+      </Link>
+
+      <Link style={resetLinkStyle} to={`/project/${id}/structured-products`}>
+        <ListItem button selected={isActive('structured-products')}>
+          <ListItemIcon>
+            <SettingsIcon color={isActive('structured-products') ? 'secondary' : 'primary'} />
+          </ListItemIcon>
+          <ListItemText primary='Structured Products' />
+        </ListItem>
+      </Link>
+
+      <Link style={resetLinkStyle} to={`/project/${id}/security-audit`}>
+        <ListItem button selected={isActive('security-audit')}>
+          <ListItemIcon>
+            <SettingsIcon color={isActive('security-audit') ? 'secondary' : 'primary'} />
+          </ListItemIcon>
+          <ListItemText primary='Security Audit' />
+        </ListItem>
+      </Link>
+
+      <Link style={resetLinkStyle} to={`/project/${id}/mphv3`}>
+        <ListItem button selected={isActive('mphv3')}>
+          <ListItemIcon>
+            <SettingsIcon color={isActive('mphv3') ? 'secondary' : 'primary'} />
+          </ListItemIcon>
+          <ListItemText primary='88MPH V3' />
+        </ListItem>
+      </Link>
+
+
     </div>
   );
 };
