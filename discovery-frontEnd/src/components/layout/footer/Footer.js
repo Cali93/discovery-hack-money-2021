@@ -4,7 +4,7 @@ import { AppBar, Container, Grid, Link, Typography } from '@material-ui/core';
 import { footerStyles } from './footer.styles';
 import logo from '../../../img/LogoOfficial.png';
 
-export default () => {
+export const Footer = () => {
   const classes = footerStyles();
   return (
     <footer style={{

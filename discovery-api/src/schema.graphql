@@ -50,10 +50,16 @@ input CreateResourceInput {
 """Date custom scalar type"""
 scalar Date
 
+input LogoutInput {
+  accessToken: String!
+  ethAddresses: [String!]!
+}
+
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
   createResource(data: CreateResourceInput!): Resource!
   login(data: SignupInput!): Auth!
+  logout(data: LogoutInput!): Int!
   refreshToken(token: String!): AuthToken!
   signup(data: SignupInput!): Auth!
   updateUser(data: UpdateUserInput!): User!

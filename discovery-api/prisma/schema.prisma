@@ -32,7 +32,7 @@ model User {
   role         Role
   email        String?    @unique
   password     String?
-  ethAddresses String[]   @unique
+  ethAddresses String[]
   ens          String?
   person       Person?    @relation(fields: [personId], references: [id])
   resources    Resource[]
@@ -104,6 +104,7 @@ model Project {
   logo                String?
   image               String?
   tokenId             String?
+  isFeatured          Boolean             @default(false)
   features            Feature[]
   developerDocs       DeveloperDoc[]
   // TODO: should we also have resources on the project level
@@ -149,6 +150,7 @@ model Lesson {
   id           String     @id @default(cuid())
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
+  type         LessonEnum
   name         String
   description  String
   introduction String
@@ -170,6 +172,11 @@ enum Role {
   ADMIN
   CREATOR
   USER
+}
+
+enum LessonEnum {
+  BRANCHED
+  DECRYPTED
 }
 
 enum ResourceEnum {

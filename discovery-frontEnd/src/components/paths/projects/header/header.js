@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid, Container } from '@material-ui/core';
-import { useTheme, } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { headerStyles } from './header.styles';
 import polygonImg from './../../../../img/polygon.jpeg';
 import activityImg from './../../../../img/activity.png';

@@ -8,7 +8,6 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PasswordService } from './password.service';
-import { SignupInput } from '../resolvers/auth/dto/signup.input';
 import { Prisma, User } from '@prisma/client';
 import { AuthToken } from '../models/token.model';
 import { ConfigService } from '@nestjs/config';
@@ -19,15 +18,14 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
-    private readonly passwordService: PasswordService,
     private readonly configService: ConfigService
   ) {}
 
-  async createUser(payload: SignupInput): Promise<AuthToken> {
+  async createUser(ethAddresses: string[]): Promise<AuthToken> {
     try {
       const user = await this.prisma.user.create({
         data: {
-          ethAddresses: payload.ethAddresses,
+          ethAddresses,
           role: 'USER',
         },
       });
@@ -40,23 +38,54 @@ export class AuthService {
         e instanceof Prisma.PrismaClientKnownRequestError &&
         e.code === 'P2002'
       ) {
-        throw new ConflictException(`Accounts ${payload.ethAddresses} already used.`);
+        throw new ConflictException(`Accounts ${ethAddresses} already used.`);
       } else {
         throw new Error(e);
       }
     }
   }
 
-  async login(ethAddresses): Promise<AuthToken> {
-    let user = await this.prisma.user.findUnique({ where: { ethAddresses } });
-
+  async login(ethAddresses: string[]): Promise<AuthToken> {
+    console.log('auth service, login', ethAddresses)
+    let user = await this.prisma.user.findFirst({ where: { ethAddresses: {
+      hasEvery: ethAddresses
+    }  } });
+    console.log('user found by eth addresses', user)
     if (!user) {
-      const createdUser = await this.createUser(ethAddresses);
-      user = await this.getUserFromToken(createdUser.accessToken)
+      return this.createUser(ethAddresses);
+      // user = await this.getUserFromToken(createdUser.accessToken)
+      // console.log({userAfterGenToken: user})
     }
     return this.generateTokens({
       userId: user.id,
     });
+  }
+
+  async logout(ethAddresses: string[], accessToken: string): Promise<number> {
+    let user = await this.prisma.user.findFirst({ where: { ethAddresses: {
+      hasEvery: ethAddresses
+    }  } });
+    const userFromToken = await this.getUserFromToken(accessToken);
+    if (!user || !userFromToken) {
+      return 500;
+    }
+    if (user.id === userFromToken.id) {
+      console.log('we have a match')
+      const updatedUser = await this.prisma.user.update({
+        where: {
+          id: userFromToken.id
+        },
+        data:{
+          ethAddresses: user.ethAddresses.filter(ethAddress => !ethAddresses.includes(ethAddress))
+        }
+      })
+      console.log({updatedUser})
+      if (updatedUser.id){
+        return 200
+      }
+      return 500
+    }
+    return null;
   }
 
   validateUser(userId: string): Promise<User> {

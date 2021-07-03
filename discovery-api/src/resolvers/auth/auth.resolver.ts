@@ -7,9 +7,11 @@ import {
   Args,
   Parent,
   ResolveField,
+  Int,
 } from '@nestjs/graphql';
 import { AuthService } from '../../services/auth.service';
 import { SignupInput } from './dto/signup.input';
+import { LogoutInput } from './dto/logout.input';
 
 @Resolver((of) => Auth)
 export class AuthResolver {
@@ -17,7 +19,7 @@ export class AuthResolver {
 
   @Mutation((returns) => Auth)
   async signup(@Args('data') data: SignupInput) {
-    const { accessToken, refreshToken } = await this.auth.createUser(data);
+    const { accessToken, refreshToken } = await this.auth.createUser(data.ethAddresses);
     return {
       accessToken,
       refreshToken,
@@ -26,12 +28,17 @@ export class AuthResolver {
 
   @Mutation((returns) => Auth)
   async login(@Args('data') { ethAddresses }: SignupInput) {
+    console.log({ethAddresses});
     const { accessToken, refreshToken } = await this.auth.login(ethAddresses);
 
     return {
       accessToken,
       refreshToken,
     };
+  }
+  @Mutation((returns) => Int)
+  async logout(@Args('data') { ethAddresses, accessToken }: LogoutInput) {
+    return this.auth.logout(ethAddresses, accessToken);
   }
 
   @Mutation((returns) => AuthToken)

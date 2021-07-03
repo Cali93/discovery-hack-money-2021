@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import themes, { overrides } from './themes';
+import { overrides, defaultTheme } from './themes/index';
 import {
   ApolloClient,
   InMemoryCache,
@@ -17,7 +17,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-const theme = createMuiTheme({ ...themes.default, ...overrides });
+const theme = createMuiTheme({ ...defaultTheme.default, ...overrides });
 if (typeof window.ethereum !== 'undefined') {
   console.log('MetaMask is installed!');
 }

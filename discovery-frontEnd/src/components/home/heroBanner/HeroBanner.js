@@ -1,10 +1,10 @@
 
-import React, { Component } from 'react';
-import { Container, Button } from '@material-ui/core';
+import React from 'react';
+import { Button } from '@material-ui/core';
 import { bannerStyles } from './heroBanner.styles';
 import { Link } from 'react-router-dom';
 
-export default () => {
+export const HeroBanner = () => {
   const classes = bannerStyles();
   return (
     <div className={classes.content}>

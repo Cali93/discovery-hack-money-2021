@@ -52,6 +52,7 @@ async function main() {
     for (let [tokenName, uniTokenId] of PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID) {
       if (tokenName.toLocaleLowerCase().includes(project.name.toLowerCase())){
         project.tokenId = uniTokenId;
+        project.isFeatured = true;
       }
     }
     if (categories && categories.length > 0) {

@@ -1,7 +1,7 @@
-import defaultTheme from './default';
+import { theme } from './default';
 
-export default {
-  default: defaultTheme
+export const defaultTheme = {
+  default: theme
 };
 
 export const overrides = {
