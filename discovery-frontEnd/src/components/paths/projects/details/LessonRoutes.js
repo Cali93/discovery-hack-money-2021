@@ -32,14 +32,7 @@ export class LessonRoutes extends Component {
           <Route exact path="/project/:id/mphv3" component={Mphv3} />
 
 
-          {/*
 
-          <Route exact path="/events/:id/edit" component={EditEvent} />
-          <Route
-            exact
-            path="/events/:id/tasks/EditTaskForm/:taskId"
-            component={EditTaskForm}
-          /> */}
           <Redirect from="/project/:id" to="/project/:id/dashboard-metrics" exact />
         </Switch>
       </div>

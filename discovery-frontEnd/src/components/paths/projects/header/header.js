@@ -16,7 +16,7 @@ export default function Header() {
   const classes = headerStyles();
   return (
 
-    <div className={classes.root}>
+    <div className={classes.root} >
       <Grid container className={classes.mainGrid}>
 
         <Grid item xs={6} sm={3}>
@@ -42,8 +42,8 @@ export default function Header() {
           </Grid>
           <br />
           <Grid item align="right">
-            <p className={classes.imgDescription}>Activity History</p>
             <img src={activityImg} alt="activity" className={classes.activity} />
+            <p className={classes.imgDescription}>Activity History</p>
           </Grid>
         </Grid>
       </Grid>

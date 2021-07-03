@@ -26,6 +26,6 @@ export const projectContainerStyles = makeStyles(theme => ({
         }
     },
     gridContainer: {
-        paddingTop: '30px', paddingLeft: '20px', paddingBottom: '20px'
+        paddingTop: '30px', paddingLeft: '20px', paddingBottom: '20px', 
     }
 }));

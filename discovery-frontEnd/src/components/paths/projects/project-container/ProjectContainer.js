@@ -31,7 +31,7 @@ export default function ProjectContainer() {
 
 
       {/* Buttons Gruop for branched, decrypted & Enrolled  */}
-      <Grid container className={classes.gridContainer}>
+      <Grid container className={classes.gridContainer} >
         <Grid item xs={12} sm={6} style={{ display: 'flex' }}>
           <Link style={resetLinkStyle} to={`/project/${id}`}>
             <ListItem button selected={!isDecrypted}>
@@ -51,7 +51,7 @@ export default function ProjectContainer() {
           </Link>
         </Grid>
 
-        <Grid item xs={12} sm={6} align="right" style={{ paddingRight: '10px' }}>
+        <Grid item xs={12} sm={6} align="right" style={{ paddingRight: '10px', }}>
           <Button
             variant="contained"
             size="large"
@@ -61,10 +61,19 @@ export default function ProjectContainer() {
               fontSize: "15px"
             }}
           >Enroll</Button>
+          <Button
+            component={Link}
+            to="/categories"
+            variant="contained"
+            size="large"
+            style={{
+              backgroundColor: "red",
+              padding: "12px 30px",
+              fontSize: "15px"
+            }}
+          >Exit</Button>
         </Grid>
       </Grid>
-
-
 
       {/* SideBar and Project content */}
       <Grid container style={{ paddingBottom: '250px' }}>

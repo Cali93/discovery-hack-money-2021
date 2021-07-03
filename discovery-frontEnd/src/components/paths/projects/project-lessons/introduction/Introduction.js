@@ -1,6 +1,4 @@
 import React from 'react';
-// import t from './../../../../img/t.png';
-
 function Introduction(props) {
   return (
     <div>
