@@ -24,7 +24,7 @@ export class ProjectResolver {
     const projects = await this.projectRepository.getDeFiProjects();
     return projects;
   }
-  @Query((returns) => Project)
+  @Query((returns) => Project, { nullable: true })
   async getProjectById(
     @Args('id') id: string
   ) {

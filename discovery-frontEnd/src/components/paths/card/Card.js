@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const resetLinkStyle = { textDecoration: 'none', color: 'inherit', fontSize: '0.9rem', width: '100%', textAlign: 'center', padding: '5px' };
-export default function CardComponent({ name, description, projects, subcategories, isCategories }) {
+export default function CardComponent({ id, name, description, projects, subcategories, isCategories }) {
   const classes = useStyles();
   const hasSubcategories = subcategories && subcategories.length > 0;
   return (
@@ -44,7 +44,7 @@ export default function CardComponent({ name, description, projects, subcategori
                 color="primary"
               />
             </Link> :
-              <Button size="small" variant="contained" color="primary" component={Link} to="/project/1">Details</Button>
+              <Button size="small" variant="contained" color="primary" component={Link} to={`/project/${id}`}>Details</Button>
           }
 
         </CardContent>

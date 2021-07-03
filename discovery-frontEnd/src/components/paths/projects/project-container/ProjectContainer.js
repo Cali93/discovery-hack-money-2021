@@ -12,38 +12,53 @@ import { DecryptedNavItems, MainNavItems } from '../sideBar/NavItems';
 import { useHistory } from 'react-router-dom';
 import { projectContainerStyles } from './projectContainer.styles';
 import LessonRoutes from '../details/LessonRoutes'
+import { useQuery } from '@apollo/client';
+import { getProjectById } from '../../../../graphql/projects';
+import { Code } from '@material-ui/icons';
 
 export default function ProjectContainer() {
-  // TODO: replace this with id from props
-  const id = 1;
-  const classes = projectContainerStyles();
   const history = useHistory();
   const match = useRouteMatch();
+  console.log(match);
+  const currentPath = history.location.pathname;
+  const projectId = match.params.id
+  console.log({projectId});
+  const isDecrypted = currentPath.includes('/decrypted');
+  const classes = projectContainerStyles();
+  const { loading, error, data } = useQuery(getProjectById, {
+    variables: {
+      id: projectId
+    }
+  });
   const resetLinkStyle = {
     textDecoration: 'none', color: 'inherit', border: '#c9c9cc 2px solid', width: '250px', height: '50px'
   };
-  const currentPath = history.location.pathname;
-  const isDecrypted = currentPath.includes('/decrypted');
+
+
+  if (loading) return <h2 style={{ paddingTop: '3rem', minHeight: '600px' }}>Loading...</h2>;
+  if (error) return <p>Error :(</p>;
+  if (data?.getProjectById) {
+    console.log('data', data)
+  }
+
   return (
-    <div>
-      <Header />
-
-
+    <>
+      <Header name={data.getProjectById.name} description={data.getProjectById.description} logo={data.getProjectById.logo} token={data.getProjectById.token} />
       {/* Buttons Gruop for branched, decrypted & Enrolled  */}
       <Grid container className={classes.gridContainer} >
         <Grid item xs={12} sm={6} style={{ display: 'flex' }}>
-          <Link style={resetLinkStyle} to={`/project/${id}`}>
+          <Link style={resetLinkStyle} to={`/project/${projectId}`}>
             <ListItem button selected={!isDecrypted}>
               <ListItemIcon>
-                <PostsIcon color={!isDecrypted ? 'secondary' : 'primary'} />
+                <PostsIcon color={!isDecrypted ? 'action' : 'error'} />
               </ListItemIcon>
               <ListItemText primary='Branched' />
             </ListItem>
           </Link>
-          <Link style={resetLinkStyle} to={`/project/${id}/decrypted`}>
+          <Link style={resetLinkStyle} to={`/project/${projectId}/decrypted`}>
             <ListItem button selected={isDecrypted}>
               <ListItemIcon>
-                <PostsIcon color={isDecrypted ? 'secondary' : 'primary'} />
+                <Code color={isDecrypted ? 'action' : 'error'} />
               </ListItemIcon>
               <ListItemText primary='Decrypted' />
             </ListItem>
@@ -75,7 +90,7 @@ export default function ProjectContainer() {
       </Grid>
 
       {/* SideBar and Project content */}
-      <Grid container style={{ paddingBottom: '250px' }}>
+      <Grid container>
         <Grid item xs={4} sm={2} style={{ display: 'flex' }}>
           <SideBar
             navItems={
@@ -86,10 +101,10 @@ export default function ProjectContainer() {
             isOpen={true}
             classes={classes} />
         </Grid>
-        <Grid item xs={20} sm={10} align="left" style={{ paddingLeft: '30px' }}>
+        <Grid item xs={12} sm={10} align="left" style={{ paddingLeft: '30px' }}>
           <LessonRoutes />
         </Grid>
       </Grid>
-    </div >
+    </>
   )
 }

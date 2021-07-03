@@ -20,7 +20,7 @@ export default function Subcategories() {
       <Grid container spacing={3} style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
         {
           state && state.projects ? state.projects.map(({ id, name, description }) => {
-            return <CardComponent key={id} name={name} description={description} />
+            return <CardComponent id={id} key={id} name={name} description={description} />
           }) : ""
         }
       </Grid>

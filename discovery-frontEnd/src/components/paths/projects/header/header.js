@@ -2,7 +2,6 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { headerStyles } from './header.styles';
 import polygonImg from './../../../../img/polygon.jpeg';
-import activityImg from './../../../../img/activity.png';
 
 import githubImg from './../../../../img/github.jpeg';
 import twitterImg from './../../../../img/twitter.png';
@@ -11,25 +10,20 @@ import websiteImg from './../../../../img/website.png';
 import discordImg from './../../../../img/discord.png';
 
 
-export default function Header() {
+export default function Header({ logo, banner, name, description, token }) {
   const classes = headerStyles();
   return (
-
     <div className={classes.root} >
       <Grid container className={classes.mainGrid}>
-
         <Grid item xs={6} sm={3}>
-          <img src={polygonImg} alt="polygon" className={classes.logo} />
-
+          <img src={logo || polygonImg} alt="polygon" className={classes.logo} />
         </Grid>
         <Grid item xs={4} sm={2} align="left" style={{ marginLeft: '-15px' }}>
-          <h2 >Polygon</h2>
-          <p>Polygon is a protocol and a framework for building and connecting Ethereum-compatible blockchain networks.</p>
+          <h2>{name}</h2>
+          <p>{description}</p>
+          <p>Contract address: {token.id}</p>
         </Grid>
-
-
         <Grid item xs={12} sm={7} >
-
           <Grid container direction="row" alignItems="flex-end" justify="flex-end" >
             <Grid item align="center">
               <img src={githubImg} alt="github" className={classes.icons} />
@@ -40,9 +34,10 @@ export default function Header() {
             </Grid>
           </Grid>
           <br />
-          <Grid item align="right">
-            <p style={{marginRight: '20px'}}>Fake Development Activity</p>
-            <img src={activityImg} alt="activity" className={classes.activity} />
+          <Grid item align="right" style={{paddingRight: '20px'}}>
+            <p>Symbol: {token.symbol}</p>
+            <p>{token.symbol} / USDT: {token.priceUSDT}</p>
+            <p>Traded volume: {token.tradeVolume}</p>
           </Grid>
         </Grid>
       </Grid>

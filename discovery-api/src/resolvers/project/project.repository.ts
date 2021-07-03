@@ -56,7 +56,7 @@ export class ProjectRepository {
   async getProjectById(id: string) {
     const project = await this.prisma.project.findUnique({
       where: {
-        id
+        id,
       },
       include: {
         categories: {
@@ -67,6 +67,9 @@ export class ProjectRepository {
         competitors: true
       }
     })
+    if (!project){
+      return null;
+    }
     const projectWithFormattedCategories = {
       ...project,
       categories: project.categories.map(({ category}) => category)

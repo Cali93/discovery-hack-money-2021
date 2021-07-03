@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import Details from './Details';
 import DashboardMetrics from '../project-lessons/dashboard-metrics/DashboardMetrics';
 import Introduction from '../project-lessons/introduction/Introduction';
 

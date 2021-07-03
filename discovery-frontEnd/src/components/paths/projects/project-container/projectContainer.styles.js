@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const projectContainerStyles = makeStyles(theme => ({
     root: {
-        flexGrow: 1,
+        height: '100%',
     },
     drawerPaper: {
         position: 'relative',
@@ -26,6 +26,6 @@ export const projectContainerStyles = makeStyles(theme => ({
         }
     },
     gridContainer: {
-        paddingTop: '30px', paddingLeft: '20px', paddingBottom: '20px', 
+        paddingTop: '30px', paddingLeft: '20px', paddingBottom: '20px',
     }
 }));
