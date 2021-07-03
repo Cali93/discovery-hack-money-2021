@@ -4,25 +4,24 @@ import MetaMaskOnboarding from '@metamask/onboarding';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import React, { useCallback } from 'react';
 import { logoutMutation, setAccountsMutation } from '../../graphql/authentication';
+import { store } from '../../store';
 
 const ONBOARD_TEXT = 'Click here to install MetaMask!';
 const CONNECT_TEXT = 'Connect';
 const LOGOUT_TEXT = 'Logout';
 
 export function OnboardingButton() {
-  const setUser = useStoreActions(actions => actions.user.setUser);
-  const removeToken = useStoreActions(actions => actions.user.logout);
-  const { user } = useStoreState(state => state.user);
+  const setUser = useStoreActions(actions => actions.userStore.setUser);
+  const { user } = useStoreState(state => state.userStore);
   const [buttonText, setButtonText] = React.useState(ONBOARD_TEXT);
   const [isDisabled, setDisabled] = React.useState(false);
   const onboarding = React.useRef();
   const [login, { data: loginData }] = useMutation(setAccountsMutation);
   const [logout] = useMutation(logoutMutation);
-  console.log({loginData });
   const handleLoginOrRegister = useCallback(
     async (newAccounts) => {
       console.log('handling signup', user.accessToken, newAccounts);
-      if (user.accessToken){
+      if (user.accessToken || loginData?.login?.accessToken){
         setButtonText(LOGOUT_TEXT)
       }
       const loginResponse = await login({
@@ -32,12 +31,11 @@ export function OnboardingButton() {
           }
         }
       })
-      console.log({loginResponse});
       if(loginResponse?.data?.login?.accessToken){
         setUser(loginResponse.data.login)
       }
     },
-    [login, user.accessToken, setUser],
+    [login, user.accessToken, setUser, loginData?.login?.accessToken],
   )
   const handleLogout = useCallback(
     async (ethAddresses) => {
@@ -50,16 +48,15 @@ export function OnboardingButton() {
             }
           }
         })
-        console.log(loginData?.login?.accessToken);
-        console.log({logoutStatus});
         if (logoutStatus.data.logout === 200){
-          removeToken()
-          setDisabled(false);
-          setButtonText(CONNECT_TEXT);
+          store.persist.clear().then(() => {
+            setDisabled(false);
+            setButtonText(CONNECT_TEXT);
+          })
         }
       }
     },
-    [logout, loginData?.login?.accessToken, user.accessToken, removeToken],
+    [logout, loginData?.login?.accessToken, user.accessToken],
   )
 
   React.useEffect(() => {
@@ -69,9 +66,7 @@ export function OnboardingButton() {
   }, []);
 
   React.useEffect(() => {
-    console.log('in use effect');
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-      console.log('meta installed');
       if (user.accessToken || loginData?.login?.accessToken) {
         setButtonText(LOGOUT_TEXT);
         onboarding.current.stopOnboarding();

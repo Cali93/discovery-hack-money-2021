@@ -1,13 +1,9 @@
 import { action } from 'easy-peasy';
 
-export const user = {
+export const userStore = {
   user: {},
   login: action((state, loginResponse) => {
     state.user = loginResponse;
-    return state;
-  }),
-  logout: action((state, _logoutPayload) => {
-    state.user = {};
     return state;
   }),
   setUser: action((state, payload) => {
