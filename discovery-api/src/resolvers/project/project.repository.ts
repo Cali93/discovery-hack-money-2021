@@ -47,9 +47,7 @@ export class ProjectRepository {
     }))
 
     const tokenIds = projectWithFormattedCategories.filter(p => p.tokenId).map(p => p.tokenId);
-    console.log({tokenIds})
     const projectsWithTokenPrice = await this.univ2.getUniswapTokensUSDTPairs(tokenIds);
-    console.log({projectsWithTokenPrice})
     const projectsWithTokenData = projectWithFormattedCategories.map(project => {
       const projectTokenDetails = projectsWithTokenPrice.find(pair => pair.token0.id === project.tokenId)
       console.log({projectTokenDetails})

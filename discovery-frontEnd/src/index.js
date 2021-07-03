@@ -9,9 +9,8 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
-  gql
 } from "@apollo/client";
+
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -19,13 +18,15 @@ const client = new ApolloClient({
 });
 
 const theme = createMuiTheme({ ...themes.default, ...overrides });
-
+if (typeof window.ethereum !== 'undefined') {
+  console.log('MetaMask is installed!');
+}
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
     <ApolloProvider client={client}>
-      <App />
+      <MuiThemeProvider theme={theme}>
+          <App />
+      </MuiThemeProvider>
     </ApolloProvider>,
-  </MuiThemeProvider>,
   document.getElementById('root')
 );
 

@@ -50,15 +50,10 @@ input CreateResourceInput {
 """Date custom scalar type"""
 scalar Date
 
-input LoginInput {
-  email: String!
-  password: String!
-}
-
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
   createResource(data: CreateResourceInput!): Resource!
-  login(data: LoginInput!): Auth!
+  login(data: SignupInput!): Auth!
   refreshToken(token: String!): AuthToken!
   signup(data: SignupInput!): Auth!
   updateUser(data: UpdateUserInput!): User!
@@ -77,14 +72,6 @@ type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
   startCursor: String
-}
-
-input PersonInput {
-  firstname: String
-  lastname: String
-  nickname: String
-  title: String
-  twitter: String
 }
 
 type Project {
@@ -165,11 +152,7 @@ enum Role {
 }
 
 input SignupInput {
-  email: String
-  ens: String
-  ethAddress: String
-  password: String
-  person: PersonInput!
+  ethAddresses: [String!]
 }
 
 type Subscription {

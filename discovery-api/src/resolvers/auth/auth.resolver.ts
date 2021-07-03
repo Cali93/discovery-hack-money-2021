@@ -17,7 +17,6 @@ export class AuthResolver {
 
   @Mutation((returns) => Auth)
   async signup(@Args('data') data: SignupInput) {
-    data.email = data.email.toLowerCase();
     const { accessToken, refreshToken } = await this.auth.createUser(data);
     return {
       accessToken,
@@ -26,11 +25,8 @@ export class AuthResolver {
   }
 
   @Mutation((returns) => Auth)
-  async login(@Args('data') { email, password }: LoginInput) {
-    const { accessToken, refreshToken } = await this.auth.login(
-      email.toLowerCase(),
-      password
-    );
+  async login(@Args('data') { ethAddresses }: SignupInput) {
+    const { accessToken, refreshToken } = await this.auth.login(ethAddresses);
 
     return {
       accessToken,

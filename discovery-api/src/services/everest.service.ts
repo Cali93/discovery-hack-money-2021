@@ -18,7 +18,6 @@ export class EverestService {
       const { data } = await this.http.post(apiUrl, {
           query: getEverestCategoriesQuery
       }).toPromise();
-      console.log(data.data)
       return data.data.categories;
     } catch (error) {
       console.log(error);
@@ -33,7 +32,6 @@ export class EverestService {
       const { data } = await this.http.post(apiUrl, {
           query: getEverestProjectsQuery
       }).toPromise();
-      console.log(data.data.projects.filter((project: Project) => project.categories.length > 0).length)
       return data.data.projects.filter((project: Project) => project.categories.length > 0);
     } catch (error) {
       console.log(error);

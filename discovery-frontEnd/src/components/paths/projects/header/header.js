@@ -31,7 +31,7 @@ export default function Header() {
 
         <Grid item xs={12} sm={7} >
 
-          <Grid container direction="row" alignItems="right" justify="flex-end" >
+          <Grid container direction="row" alignItems="flex-end" justify="flex-end" >
             <Grid item align="center">
               <img src={githubImg} alt="github" className={classes.icons} />
               <img src={twitterImg} alt="twitterImg" className={classes.icons} />
@@ -42,7 +42,7 @@ export default function Header() {
           </Grid>
           <br />
           <Grid item align="right">
-            <p className={classes.imgDescription}>Activity History</p>
+            <p style={{marginRight: '20px'}}>Fake Development Activity</p>
             <img src={activityImg} alt="activity" className={classes.activity} />
           </Grid>
         </Grid>

@@ -1,7 +1,7 @@
 import tinycolor from 'tinycolor2';
 
-const primary = '#4c66ff';
-const secondary = '#ED836C';
+const primary = '#A0E7E5';
+const secondary = '#FBE7C6';
 const warning = '#FEB900';
 const error = '#f44336';
 const success = '#3CD4A0';
@@ -73,8 +73,8 @@ export default {
       hint: '#B9B9B9'
     },
     background: {
-      default: '#F6F7FF',
-      light: '#F3F5FF'
+      default: '#A0E7E5',
+      light: '#B4F8C8'
     }
   },
   customShadows: {

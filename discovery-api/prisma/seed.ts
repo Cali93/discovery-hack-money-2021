@@ -29,7 +29,6 @@ async function main() {
     data: allEverestCategories
   });
 
-  console.log({ createdCategories });
   const getAllEverestProjects = async (first = 100, skip = 0, alreadyFoundProjects = []) => {
     return http.post(process.env.EVEREST_SUBGRAPH_API_URL, {
       query: getEverestProjectsQuery,

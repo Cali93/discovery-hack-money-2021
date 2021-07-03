@@ -1,4 +1,4 @@
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const footerStyles = makeStyles(theme => ({
   links: {
@@ -7,11 +7,12 @@ export const footerStyles = makeStyles(theme => ({
   link: {
     marginTop: '1.5rem',
     margin: '0 .7rem',
-    color: 'white',
+    color: 'black',
+    fontWeight: 'bold'
   },
   logo: {
-    maxWidth: 60,
-    maxHeight: 60,
+    maxWidth: 150,
+    maxHeight: 150,
     paddingTop: '15px',
   },
   copyright: {

@@ -16,10 +16,11 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { navbarStyles } from './navbar.styles';
 import logo from '../../../img/LogoOfficial.png';
-
+import { OnboardingButton } from '../../atoms/onboardingButton';
 
 export const Navbar = withRouter(({ history }) => {
   const classes = navbarStyles();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -102,8 +103,7 @@ export const Navbar = withRouter(({ history }) => {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
-
+      <AppBar position="static" color='primary'>
         <Toolbar>
           <img src={logo} alt="logo" className={classes.logo} />
           <Link to="/" className={classes.whiteLink}>
@@ -151,9 +151,7 @@ export const Navbar = withRouter(({ history }) => {
               component={Link} to="/">
               Get Involved
             </Button>
-
-
-
+            <OnboardingButton />
             <IconButton
               edge="end"
               aria-label="account of current user"

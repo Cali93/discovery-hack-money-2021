@@ -24,15 +24,10 @@ export class AuthService {
   ) {}
 
   async createUser(payload: SignupInput): Promise<AuthToken> {
-    const hashedPassword = await this.passwordService.hashPassword(
-      payload.password
-    );
-
     try {
       const user = await this.prisma.user.create({
         data: {
-          ...payload,
-          password: hashedPassword,
+          ethAddresses: payload.ethAddresses,
           role: 'USER',
         },
       });
@@ -45,29 +40,20 @@ export class AuthService {
         e instanceof Prisma.PrismaClientKnownRequestError &&
         e.code === 'P2002'
       ) {
-        throw new ConflictException(`Email ${payload.email} already used.`);
+        throw new ConflictException(`Accounts ${payload.ethAddresses} already used.`);
       } else {
         throw new Error(e);
       }
     }
   }
 
-  async login(email: string, password: string): Promise<AuthToken> {
-    const user = await this.prisma.user.findUnique({ where: { email } });
+  async login(ethAddresses): Promise<AuthToken> {
+    let user = await this.prisma.user.findUnique({ where: { ethAddresses } });
 
     if (!user) {
-      throw new NotFoundException(`No user found for email: ${email}`);
+      const createdUser = await this.createUser(ethAddresses);
+      user = await this.getUserFromToken(createdUser.accessToken)
     }
-
-    const passwordValid = await this.passwordService.validatePassword(
-      password,
-      user.password
-    );
-
-    if (!passwordValid) {
-      throw new BadRequestException('Invalid password');
-    }
-
     return this.generateTokens({
       userId: user.id,
     });

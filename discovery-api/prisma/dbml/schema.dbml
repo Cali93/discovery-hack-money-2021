@@ -22,11 +22,11 @@ Table User {
   role Role [not null]
   email String [unique]
   password String
-  ethAddress String
+  ethAddresses String [unique, not null]
   ens String
-  person Person [not null]
+  person Person
   resources Resource [not null]
-  personId String [not null]
+  personId String
 }
 
 Table Resource {

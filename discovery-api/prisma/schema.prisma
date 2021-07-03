@@ -26,17 +26,17 @@ model Person {
 }
 
 model User {
-  id         String     @id @default(cuid())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  role       Role
-  email      String?    @unique
-  password   String?
-  ethAddress String?
-  ens        String?
-  person     Person     @relation(fields: [personId], references: [id])
-  resources  Resource[]
-  personId   String
+  id           String     @id @default(cuid())
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  role         Role
+  email        String?    @unique
+  password     String?
+  ethAddresses String[]   @unique
+  ens          String?
+  person       Person?    @relation(fields: [personId], references: [id])
+  resources    Resource[]
+  personId     String?
 }
 
 model Resource {

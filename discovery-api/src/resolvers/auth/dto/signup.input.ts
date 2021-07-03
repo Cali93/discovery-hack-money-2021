@@ -17,22 +17,6 @@ export class PersonInput {
 
 @InputType()
 export class SignupInput {
-  @Field()
-  @IsEmail()
-  email?: string;
-
-  @Field()
-  @IsNotEmpty()
-  @MinLength(8)
-  password?: string;
-
-  @Field()
-  // @MinLength(8)
-  ethAddress?: string;
-
-  @Field()
-  ens?: string;
-
-  @Field(() => PersonInput)
-  person: PersonInput
+  @Field(()=> [String!])
+  ethAddresses?: string[];
 }

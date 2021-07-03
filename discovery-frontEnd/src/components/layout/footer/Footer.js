@@ -2,14 +2,16 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Container, Grid, Link, Typography } from '@material-ui/core';
 import { footerStyles } from './footer.styles';
-import logo from '../../../img/logo.png';
+import logo from '../../../img/LogoOfficial.png';
 
 export default () => {
   const classes = footerStyles();
   return (
-    <footer>
+    <footer style={{
+      marginTop: 'calc(5% + 60px)',
+      bottom: 0
+  }}>
       <AppBar className="primary-color marginT-3 pad-2" position="static">
-
         <Grid component={Container} container>
           <Grid item xs={12} sm={3}>
             <img src={logo} className={classes.logo} alt="Logo" />
