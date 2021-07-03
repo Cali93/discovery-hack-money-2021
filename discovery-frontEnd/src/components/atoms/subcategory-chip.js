@@ -11,7 +11,6 @@ export default function SubCategoryChip({ id, name, parentCategoryName, projects
       projects
     })
   };
-
   return (
       <Chip label={name} disabled variant='outlined' onClick={handleClick} />
   );

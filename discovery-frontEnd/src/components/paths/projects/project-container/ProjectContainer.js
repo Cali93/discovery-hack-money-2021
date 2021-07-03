@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Header from '../header/header';
 import SideBar from '../sideBar/SideBar';
-import Details from '../details/Details';
 import { DecryptedNavItems, MainNavItems } from '../sideBar/NavItems';
 import { useHistory } from 'react-router-dom';
 import { projectContainerStyles } from './projectContainer.styles';

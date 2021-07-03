@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import Details from './Details';
 import DashboardMetrics from '../project-lessons/dashboard-metrics/DashboardMetrics';
 import Introduction from '../project-lessons/introduction/Introduction';
 import Governance from '../project-lessons/governance/Governance';
@@ -30,8 +29,6 @@ export class LessonRoutes extends Component {
           <Route exact path="/project/:id/structured-products" component={StructuredProducts} />
           <Route exact path="/project/:id/security-audit" component={SecurityAudit} />
           <Route exact path="/project/:id/mphv3" component={Mphv3} />
-
-
 
           <Redirect from="/project/:id" to="/project/:id/dashboard-metrics" exact />
         </Switch>
