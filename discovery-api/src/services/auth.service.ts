@@ -70,22 +70,31 @@ export class AuthService {
       return 500;
     }
     if (user.id === userFromToken.id) {
-      console.log('we have a match')
-      const updatedUser = await this.prisma.user.update({
+      return 200;
+    }
+    return 500;
+  }
+
+  async deleteUser(ethAddresses: string[], accessToken: string): Promise<number> {
+    let user = await this.prisma.user.findFirst({ where: { ethAddresses: {
+      hasEvery: ethAddresses
+    }  } });
+    const userFromToken = await this.getUserFromToken(accessToken);
+    if (!user || !userFromToken) {
+      return 500;
+    }
+    if (user.id === userFromToken.id) {
+      const updatedUser = await this.prisma.user.delete({
         where: {
           id: userFromToken.id
-        },
-        data:{
-          ethAddresses: user.ethAddresses.filter(ethAddress => !ethAddresses.includes(ethAddress))
         }
       })
-      console.log({updatedUser})
       if (updatedUser.id){
         return 200
       }
       return 500
     }
-    return null;
+    return 500
   }
 
   validateUser(userId: string): Promise<User> {

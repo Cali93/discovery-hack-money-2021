@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { overrides, defaultTheme } from './themes/index';
+import { StoreProvider } from 'easy-peasy';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
-
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { overrides, defaultTheme } from './themes/index';
+import { store } from './store';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -24,7 +25,9 @@ if (typeof window.ethereum !== 'undefined') {
 ReactDOM.render(
     <ApolloProvider client={client}>
       <MuiThemeProvider theme={theme}>
+        <StoreProvider store={store}>
           <App />
+        </StoreProvider>
       </MuiThemeProvider>
     </ApolloProvider>,
   document.getElementById('root')

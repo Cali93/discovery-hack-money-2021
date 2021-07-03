@@ -1,51 +1,65 @@
 import { useMutation } from '@apollo/client';
 import { Button } from '@material-ui/core';
 import MetaMaskOnboarding from '@metamask/onboarding';
+import { useStoreActions, useStoreState } from 'easy-peasy';
 import React, { useCallback } from 'react';
-import { removeAccountsMutation, setAccountsMutation } from '../../graphql/authentication';
+import { logoutMutation, setAccountsMutation } from '../../graphql/authentication';
 
 const ONBOARD_TEXT = 'Click here to install MetaMask!';
 const CONNECT_TEXT = 'Connect';
-const CONNECTED_TEXT = 'Logout';
+const LOGOUT_TEXT = 'Logout';
 
 export function OnboardingButton() {
+  const setUser = useStoreActions(actions => actions.user.setUser);
+  const removeToken = useStoreActions(actions => actions.user.logout);
+  const { user } = useStoreState(state => state.user);
   const [buttonText, setButtonText] = React.useState(ONBOARD_TEXT);
   const [isDisabled, setDisabled] = React.useState(false);
   const onboarding = React.useRef();
   const [login, { data: loginData }] = useMutation(setAccountsMutation);
-  const [logout, { data: logoutData }] = useMutation(removeAccountsMutation);
-  console.log({loginData, logoutData});
+  const [logout] = useMutation(logoutMutation);
+  console.log({loginData });
   const handleLoginOrRegister = useCallback(
-    (newAccounts) => {
-      console.log('handling signup', loginData?.login?.accessToken, newAccounts);
-      if (loginData?.login?.accessToken){
-        setButtonText(CONNECTED_TEXT)
+    async (newAccounts) => {
+      console.log('handling signup', user.accessToken, newAccounts);
+      if (user.accessToken){
+        setButtonText(LOGOUT_TEXT)
       }
-      login({
+      const loginResponse = await login({
         variables: {
           data: {
             ethAddresses: newAccounts
           }
         }
       })
+      console.log({loginResponse});
+      if(loginResponse?.data?.login?.accessToken){
+        setUser(loginResponse.data.login)
+      }
     },
-    [login, loginData?.login.accessToken],
+    [login, user.accessToken, setUser],
   )
-  const handleRemoveEthAddresses = useCallback(
-    (ethAddresses) => {
-      console.log('handling logout');
-      logout({
-        variables: {
-          data: {
-            ethAddresses: ethAddresses,
-            accessToken: loginData?.login?.accessToken
+  const handleLogout = useCallback(
+    async (ethAddresses) => {
+      if (user.accessToken || loginData?.login?.accessToken){
+        const logoutStatus = await logout({
+          variables: {
+            data: {
+              ethAddresses: ethAddresses,
+              accessToken: user.accessToken || loginData?.login?.accessToken
+            }
           }
+        })
+        console.log(loginData?.login?.accessToken);
+        console.log({logoutStatus});
+        if (logoutStatus.data.logout === 200){
+          removeToken()
+          setDisabled(false);
+          setButtonText(CONNECT_TEXT);
         }
-      })
-      setButtonText(CONNECT_TEXT);
-      setDisabled(false);
+      }
     },
-    [logout, loginData?.login?.accessToken],
+    [logout, loginData?.login?.accessToken, user.accessToken, removeToken],
   )
 
   React.useEffect(() => {
@@ -55,9 +69,11 @@ export function OnboardingButton() {
   }, []);
 
   React.useEffect(() => {
+    console.log('in use effect');
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-      if (loginData?.login.accessToken) {
-        setButtonText(CONNECTED_TEXT);
+      console.log('meta installed');
+      if (user.accessToken || loginData?.login?.accessToken) {
+        setButtonText(LOGOUT_TEXT);
         onboarding.current.stopOnboarding();
         setDisabled(false);
       } else {
@@ -65,39 +81,31 @@ export function OnboardingButton() {
         setDisabled(false);
       }
     }
-  }, [loginData?.login?.accessToken]);
-
-  // React.useEffect(() => {
-  //   if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-  //     window.ethereum
-  //       .request({ method: 'eth_requestAccounts' })
-  //       .then(handleLoginOrRegister);
-  //     window.ethereum.on('accountsChanged', handleLoginOrRegister);
-  //   }
-  // }, [handleLoginOrRegister]);
+  }, [loginData?.login?.accessToken, user.accessToken]);
 
   const handleWalletAction = useCallback(
-    (action) => {
+    (e, action) => {
+      e.preventDefault();
       if (MetaMaskOnboarding.isMetaMaskInstalled()) {
         if(action === CONNECT_TEXT){
           window.ethereum
             .request({ method: 'eth_requestAccounts' })
-            .then((newAccounts) => handleLoginOrRegister(newAccounts));
+            .then(handleLoginOrRegister);
         }
-        if(action === CONNECTED_TEXT){
+        if(action === LOGOUT_TEXT){
           window.ethereum
             .request({ method: 'eth_requestAccounts' })
-            .then((addresses) => handleRemoveEthAddresses(addresses));
-          window.ethereum.on('accountsChanged', handleRemoveEthAddresses);
+            .then(handleLogout);
+          window.ethereum.on('accountsChanged', handleLogout);
         }
       } else {
         onboarding.current.startOnboarding();
       }
     },
-    [handleLoginOrRegister, handleRemoveEthAddresses],
+    [handleLoginOrRegister, handleLogout],
   )
   return (
-    <Button variant='outlined' disabled={isDisabled} onClick={() => handleWalletAction(buttonText)}>
+    <Button variant='outlined' disabled={isDisabled} onClick={(e) => handleWalletAction(e, buttonText)}>
       {buttonText}
     </Button>
   );

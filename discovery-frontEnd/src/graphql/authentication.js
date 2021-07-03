@@ -8,7 +8,7 @@ export const setAccountsMutation = gql`
     }
   }
 `
-export const removeAccountsMutation = gql`
+export const logoutMutation = gql`
   mutation logout($data: LogoutInput!){
     logout(data: $data)
   }

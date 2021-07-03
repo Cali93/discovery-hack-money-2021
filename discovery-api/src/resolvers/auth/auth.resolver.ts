@@ -40,6 +40,10 @@ export class AuthResolver {
   async logout(@Args('data') { ethAddresses, accessToken }: LogoutInput) {
     return this.auth.logout(ethAddresses, accessToken);
   }
+  @Mutation((returns) => Int)
+  async deleteUser(@Args('data') { ethAddresses, accessToken }: LogoutInput) {
+    return this.auth.deleteUser(ethAddresses, accessToken);
+  }
 
   @Mutation((returns) => AuthToken)
   async refreshToken(@Args('token') token: string) {

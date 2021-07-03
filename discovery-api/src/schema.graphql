@@ -58,6 +58,7 @@ input LogoutInput {
 type Mutation {
   changePassword(data: ChangePasswordInput!): User!
   createResource(data: CreateResourceInput!): Resource!
+  deleteUser(data: LogoutInput!): Int!
   login(data: SignupInput!): Auth!
   logout(data: LogoutInput!): Int!
   refreshToken(token: String!): AuthToken!
