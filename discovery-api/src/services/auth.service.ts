@@ -46,15 +46,11 @@ export class AuthService {
   }
 
   async login(ethAddresses: string[]): Promise<AuthToken> {
-    console.log('auth service, login', ethAddresses)
     let user = await this.prisma.user.findFirst({ where: { ethAddresses: {
       hasEvery: ethAddresses
     }  } });
-    console.log('user found by eth addresses', user)
     if (!user) {
       return this.createUser(ethAddresses);
-      // user = await this.getUserFromToken(createdUser.accessToken)
-      // console.log({userAfterGenToken: user})
     }
     return this.generateTokens({
       userId: user.id,

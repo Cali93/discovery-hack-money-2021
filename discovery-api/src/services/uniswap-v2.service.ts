@@ -21,7 +21,6 @@ export class UniswapV2Service {
             tokenIds
           }
       }).toPromise();
-      console.log(data)
       return data.data.tokens;
     } catch (error) {
       console.log(error);

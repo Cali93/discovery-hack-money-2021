@@ -28,7 +28,6 @@ export class AuthResolver {
 
   @Mutation((returns) => Auth)
   async login(@Args('data') { ethAddresses }: SignupInput) {
-    console.log({ethAddresses});
     const { accessToken, refreshToken } = await this.auth.login(ethAddresses);
 
     return {
