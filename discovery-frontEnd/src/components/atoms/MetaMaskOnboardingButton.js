@@ -10,7 +10,7 @@ const ONBOARD_TEXT = 'Click here to install MetaMask!';
 const CONNECT_TEXT = 'Connect';
 const LOGOUT_TEXT = 'Logout';
 
-export function OnboardingButton() {
+export function MetaMaskOnboardingButton() {
   const setUser = useStoreActions(actions => actions.userStore.setUser);
   const { user } = useStoreState(state => state.userStore);
   const [buttonText, setButtonText] = React.useState(ONBOARD_TEXT);

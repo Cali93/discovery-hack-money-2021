@@ -14,7 +14,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { navbarStyles } from './navbar.styles';
 import logo from '../../../img/LogoOfficial.png';
-import { OnboardingButton } from '../../atoms/onboardingButton';
+import { MetaMaskOnboardingButton } from '../../atoms/MetaMaskOnboardingButton';
 import { CallSplit, Games } from '@material-ui/icons';
 
 export const Navbar = withRouter(({ history }) => {
@@ -150,7 +150,7 @@ export const Navbar = withRouter(({ history }) => {
               component={Link} to="/">
               Get Involved
             </Button>
-            <OnboardingButton />
+            <MetaMaskOnboardingButton />
             <IconButton
               edge="end"
               aria-label="account of current user"
