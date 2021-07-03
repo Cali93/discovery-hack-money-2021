@@ -14,10 +14,12 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { navbarStyles } from './navbar.styles';
 import logo from '../../../img/LogoOfficial.png';
-
+import { OnboardingButton } from '../../atoms/onboardingButton';
+import { CallSplit, Games } from '@material-ui/icons';
 
 export const Navbar = withRouter(({ history }) => {
   const classes = navbarStyles();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -100,8 +102,7 @@ export const Navbar = withRouter(({ history }) => {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
-
+      <AppBar position="static" color='primary'>
         <Toolbar>
           <img src={logo} alt="logo" className={classes.logo} />
           <Link to="/" className={classes.whiteLink}>
@@ -116,12 +117,12 @@ export const Navbar = withRouter(({ history }) => {
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
-                <MailIcon />
+                <CallSplit />
               </Badge>
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
+                <Games />
               </Badge>
             </IconButton>
 
@@ -149,9 +150,7 @@ export const Navbar = withRouter(({ history }) => {
               component={Link} to="/">
               Get Involved
             </Button>
-
-
-
+            <OnboardingButton />
             <IconButton
               edge="end"
               aria-label="account of current user"

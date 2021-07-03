@@ -29,7 +29,6 @@ async function main() {
     data: allEverestCategories
   });
 
-  console.log({ createdCategories });
   const getAllEverestProjects = async (first = 100, skip = 0, alreadyFoundProjects = []) => {
     return http.post(process.env.EVEREST_SUBGRAPH_API_URL, {
       query: getEverestProjectsQuery,
@@ -53,6 +52,7 @@ async function main() {
     for (let [tokenName, uniTokenId] of PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID) {
       if (tokenName.toLocaleLowerCase().includes(project.name.toLowerCase())){
         project.tokenId = uniTokenId;
+        project.isFeatured = true;
       }
     }
     if (categories && categories.length > 0) {

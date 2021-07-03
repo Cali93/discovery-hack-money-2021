@@ -1,11 +1,23 @@
 import React from 'react';
-import { Grid, Card, CardContent, Typography, Chip, Button } from '@material-ui/core';
+import { Grid, Card, CardContent, Typography, Chip, Button, makeStyles, Avatar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
-export default function CardComponent({ name, description, projects, isCategories }) {
+import SubCategoryChip from '../../atoms/subcategory-chip';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  },
+}));
+const resetLinkStyle = { textDecoration: 'none', color: 'inherit', fontSize: '0.9rem', width: '100%', textAlign: 'center', padding: '5px' };
+export default function CardComponent({ name, description, projects, subcategories, isCategories }) {
+  const classes = useStyles();
+  const hasSubcategories = subcategories && subcategories.length > 0;
   return (
     <Grid item xs={3}>
-
       <Card style={{ height: `100%` }}>
         <CardContent>
           <Typography variant="h4" color="textPrimary" gutterBottom>
@@ -15,15 +27,26 @@ export default function CardComponent({ name, description, projects, isCategorie
             {description}
             <br />
           </Typography>
-
+          {hasSubcategories
+            ? (
+              <div className={classes.root}>
+                {subcategories.map(subcat => <SubCategoryChip key={subcat.id} name={subcat.name} description={subcat.description} projects={subcat.projects} />)}
+              </div>
+            )
+            : ""
+          }
           {
-            isCategories ? <Link to={{ pathname: `/subcategories`, state: { name: name, projects: projects } }}
-              style={{ textDecoration: 'none', paddingTop: '50px', fontSize: '0.9rem' }} align="left">
-              Number of projects:
-              <Chip size="small" color="primary" label={projects && projects.length ? projects.length : 0} style={{ marginLeft: '5px', cursor: 'pointer' }} />
+            isCategories ? <Link style={resetLinkStyle} to={{ pathname: `/subcategories`, state: { name, projects, subcategories } }}>
+              <Chip
+                avatar={<Avatar>{projects.length}</Avatar>}
+                label="Projects"
+                clickable
+                color="primary"
+              />
             </Link> :
               <Button size="small" variant="contained" color="primary" component={Link} to="/project/1">Details</Button>
           }
+
         </CardContent>
       </Card>
     </Grid>

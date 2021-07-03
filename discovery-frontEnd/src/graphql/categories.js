@@ -7,22 +7,14 @@ export const getCategories = gql`query {
     description
     projects {
       id
+      name
+      description
     }
     subcategories {
       id
       name
       description
-      projects {
-        id
-      }
-      subcategories {
-        id
-        name
-        description
-        projects {
-          id
-        }
-      }
+
     }
   }
 }`;

@@ -7,5 +7,6 @@ export const PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID = new Map([
   ["The Graph", "0xc944e90c64b2c07662a292be6244bdf05cda44a7"],
   ["Matic", "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"],
   ["Tether", "0xdac17f958d2ee523a2206206994597c13d831ec7"],
-  ["Akropolis", "0x8ab7404063ec4dbcfd4598215992dc3f8ec853d7"]
+  ["Akropolis", "0x8ab7404063ec4dbcfd4598215992dc3f8ec853d7"],
+  ["Metamask", ""]
 ]);

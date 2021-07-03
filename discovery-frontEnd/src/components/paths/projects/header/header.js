@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid, Container } from '@material-ui/core';
-import { useTheme, } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { headerStyles } from './header.styles';
 import polygonImg from './../../../../img/polygon.jpeg';
 import activityImg from './../../../../img/activity.png';
@@ -31,7 +30,7 @@ export default function Header() {
 
         <Grid item xs={12} sm={7} >
 
-          <Grid container direction="row" alignItems="right" justify="flex-end" >
+          <Grid container direction="row" alignItems="flex-end" justify="flex-end" >
             <Grid item align="center">
               <img src={githubImg} alt="github" className={classes.icons} />
               <img src={twitterImg} alt="twitterImg" className={classes.icons} />
@@ -42,8 +41,8 @@ export default function Header() {
           </Grid>
           <br />
           <Grid item align="right">
+            <p style={{marginRight: '20px'}}>Fake Development Activity</p>
             <img src={activityImg} alt="activity" className={classes.activity} />
-            <p className={classes.imgDescription}>Activity History</p>
           </Grid>
         </Grid>
       </Grid>

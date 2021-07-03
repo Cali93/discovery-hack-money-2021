@@ -1,16 +1,16 @@
 import tinycolor from 'tinycolor2';
 
-const primary = '#4c66ff';
-const secondary = '#ED836C';
+const primary = '#A0E7E5';
+const secondary = '#3CD4A0';
 const warning = '#FEB900';
-const error = '#f44336';
+const error = '#F37970';
 const success = '#3CD4A0';
-const action = '#2132b5';
+const action = '#D87EE3';
 
 const lightenRate = 7.5;
 const darkenRate = 15;
 
-export default {
+export const theme = {
   palette: {
     primary: {
       main: primary,
@@ -73,8 +73,8 @@ export default {
       hint: '#B9B9B9'
     },
     background: {
-      default: '#F6F7FF',
-      light: '#F3F5FF'
+      default: '#A0E7E5',
+      light: '#B4F8C8'
     }
   },
   customShadows: {

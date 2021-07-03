@@ -5,7 +5,7 @@ export const navbarStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   whiteLink: {
-    color: 'white',
+    color: '#274472',
     fontSize: '0.8rem',
     fontWeight: 600,
     margin: '10px',

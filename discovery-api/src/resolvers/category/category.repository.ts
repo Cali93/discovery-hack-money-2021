@@ -13,12 +13,34 @@ export class CategoryRepository {
       include: {
         subcategories: {
           include: {
-            subcategories: true,
-            projects: true
+            subcategories: {
+              include: {
+                projects: {
+                  distinct: ['projectId'],
+                  include: {
+                    project: true
+                  }
+                }
+              }
+            },
+            projects: {
+              include: {
+                project: true
+              }
+            }
           }
         },
-        projects: true
+        projects: {
+          include: {
+            project: true
+          }
+        }
       }
-    });
+    }).then(categories => categories.map(
+      ({ projects, ...category }) => ({
+        ...category,
+        projects: projects.map(projectCategory => projectCategory.project)
+      })
+    ));
   }
 }

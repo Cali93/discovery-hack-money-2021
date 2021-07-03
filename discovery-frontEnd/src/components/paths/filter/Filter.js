@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import React from 'react';
 import { categoriesStyles } from './categories.styles';
 import { Grid, InputBase } from '@material-ui/core';
