@@ -50,7 +50,7 @@ async function main() {
 
   const allEverestProjects = (withCategories = true): Project[] | ProjectWithCategoryIds[] => allProjects.map(({ categories, ...project }) => {
     for (let [tokenName, uniTokenId] of PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID) {
-      if (tokenName.toLocaleLowerCase().includes(project.name.toLowerCase())){
+      if (project.name.toLowerCase().trim() === tokenName.toLowerCase().trim()){
         project.tokenId = uniTokenId;
         project.isFeatured = true;
       }

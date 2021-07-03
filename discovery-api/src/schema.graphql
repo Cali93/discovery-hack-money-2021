@@ -103,6 +103,7 @@ type Project {
 type Query {
   getCategories: [Category!]!
   getDeFiProjects: [Project!]!
+  getProjectById(id: String!): Project!
   hello(name: String!): String!
   helloWorld: String!
   me: User!

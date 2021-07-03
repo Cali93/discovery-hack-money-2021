@@ -1,16 +1,5 @@
-import {
-  Resolver,
-  Query,
-  Parent,
-  Args,
-  ResolveField,
-  Subscription,
-  Mutation,
-} from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions/';
-import { GqlAuthGuard } from 'src/guards/gql-auth.guard';
 import { Injectable, UseGuards } from '@nestjs/common';
-import { Project } from '../../models/project.model';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UniswapV2Service } from '../../services/uniswap-v2.service';
 
@@ -63,5 +52,39 @@ export class ProjectRepository {
       }
     })
     return projectsWithTokenData;
+  }
+  async getProjectById(id: string) {
+    const project = await this.prisma.project.findUnique({
+      where: {
+        id
+      },
+      include: {
+        categories: {
+          include: {
+            category: true
+          }
+        },
+        competitors: true
+      }
+    })
+    const projectWithFormattedCategories = {
+      ...project,
+      categories: project.categories.map(({ category}) => category)
+    }
+
+    const projectWithTokenPrice = await this.univ2.getUniswapTokensUSDTPairs([projectWithFormattedCategories.tokenId]);
+
+    const projectTokenDetails = projectWithTokenPrice.find(pair => pair.token0.id === project.tokenId)
+    if (!projectTokenDetails) return project;
+    return {
+      ...project,
+      token: {
+        id: projectTokenDetails.token0.id,
+        name: projectTokenDetails.token0.name,
+        symbol: projectTokenDetails.token0.symbol,
+        tradeVolume: projectTokenDetails.token0.tradeVolume,
+        priceUSDT: projectTokenDetails.token1Price
+      }
+    }
   }
 }
