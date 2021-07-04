@@ -42,7 +42,7 @@ export default function Header({ id, logo, banner, name, description, token }) {
           {token?.id && (
             <Grid item align="right" style={{ paddingRight: '20px' }}>
               <p>Symbol: {token.symbol}</p>
-              <p>{token.symbol} / USDT: {token.priceUSDT}</p>
+              <p>{token.symbol} / {token.priceUSDT ? 'USDT' : 'wETH'}: {token.priceUSDT || token.pricewETH}</p>
               <p>Trade volume: {token.tradeVolume}</p>
             </Grid>
           )}

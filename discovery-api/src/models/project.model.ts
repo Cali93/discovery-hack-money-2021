@@ -9,7 +9,8 @@ class Token {
   name: string;
   symbol: string;
   tradeVolume: string
-  priceUSDT: string;
+  priceUSDT?: string;
+  pricewETH?: string;
 }
 @ObjectType()
 export class Project extends BaseModel {

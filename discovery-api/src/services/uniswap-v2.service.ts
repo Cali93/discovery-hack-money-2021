@@ -27,14 +27,14 @@ export class UniswapV2Service {
       throw error;
     }
   }
-  async getUniswapTokensUSDTPairs(tokenIds: string[]) {
+  async getUniswapTokensPairs(tokenIds: string[], token1 = 'Thether') {
     try {
       const { apiUrl } = this.config.get<UniswapConfig>('uniswap');
       const { data } = await this.http.post(apiUrl.v2, {
           query: getUniswapTokensUSDTPairQuery,
           variables: {
             tokenIds,
-            usdtTokenId: PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID.get('Tether')
+            usdtTokenId: PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID.get(token1)
           }
       }).toPromise();
       return data.data.pairs;

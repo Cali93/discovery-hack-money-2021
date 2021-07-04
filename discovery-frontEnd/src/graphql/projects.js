@@ -20,6 +20,7 @@ export const getProjectById = gql`
         id
         name
         priceUSDT
+        pricewETH
         tradeVolume
         symbol
       }

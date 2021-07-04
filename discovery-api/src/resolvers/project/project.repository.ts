@@ -37,7 +37,7 @@ export class ProjectRepository {
     }))
 
     const tokenIds = projectWithFormattedCategories.filter(p => p.tokenId).map(p => p.tokenId);
-    const projectsWithTokenPrice = await this.univ2.getUniswapTokensUSDTPairs(tokenIds);
+    const projectsWithTokenPrice = await this.univ2.getUniswapTokensPairs(tokenIds);
     const projectsWithTokenData = projectWithFormattedCategories.map(project => {
       const projectTokenDetails = projectsWithTokenPrice.find(pair => pair.token0.id === project.tokenId)
       if (!projectTokenDetails) return project;
@@ -85,7 +85,8 @@ export class ProjectRepository {
     }
 
     if (projectWithFormattedCategories.tokenId){
-      const projectWithTokenPrice = await this.univ2.getUniswapTokensUSDTPairs([projectWithFormattedCategories.tokenId]);
+      const is88mph = projectWithFormattedCategories.name === '88mph';
+      const projectWithTokenPrice = await this.univ2.getUniswapTokensPairs([projectWithFormattedCategories.tokenId], is88mph ? 'Wrapped Ether' : 'Tether');
       console.log({ tId: projectWithFormattedCategories.tokenId, projectWithTokenPrice})
       // const projectLogo = await this.brandfetch.getProjectLogo(projectWithFormattedCategories.website)
       const projectTokenDetails = projectWithTokenPrice.find(pair => pair.token0.id === project.tokenId)
@@ -99,7 +100,7 @@ export class ProjectRepository {
           name: projectTokenDetails.token0.name,
           symbol: projectTokenDetails.token0.symbol,
           tradeVolume: projectTokenDetails.token0.tradeVolume,
-          priceUSDT: projectTokenDetails.token1Price
+          [is88mph ? 'pricewETH' : 'priceUSDT']: projectTokenDetails.token1Price,
         }
       }
 

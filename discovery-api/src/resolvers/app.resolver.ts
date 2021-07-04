@@ -3,8 +3,8 @@ import { Resolver, Query, Args } from '@nestjs/graphql';
 @Resolver()
 export class AppResolver {
   @Query((returns) => String)
-  helloWorld(): string {
-    return 'Hello World!';
+  helloETHGlobal(): string {
+    return 'Hello ETH Global!';
   }
   @Query((returns) => String)
   hello(@Args('name') name: string): string {

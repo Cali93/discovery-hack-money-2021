@@ -157,7 +157,7 @@ type Query {
   getDeFiProjects: [Project!]!
   getProjectById(id: String!): Project
   hello(name: String!): String!
-  helloWorld: String!
+  helloETHGlobal: String!
   me: User!
   publishedResources(after: String, before: String, first: Int, last: Int, orderBy: ResourceOrder, query: String, skip: Int): ResourceConnection!
   resource(resourceId: String!): Resource!
@@ -247,7 +247,8 @@ type Subscription {
 type Token {
   id: String!
   name: String!
-  priceUSDT: String!
+  priceUSDT: String
+  pricewETH: String
   symbol: String!
   tradeVolume: String!
 }
