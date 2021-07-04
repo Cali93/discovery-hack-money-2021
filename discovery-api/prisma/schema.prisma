@@ -51,7 +51,6 @@ model Resource {
   author    User?        @relation(fields: [authorId], references: [id])
   authorId  String
   projects  Project[]
-  lessons   Lesson[]
 }
 
 model Category {
@@ -146,26 +145,50 @@ model DeveloperDoc {
   projectId String?
 }
 
+model LessonResource {
+  id       String  @id @default(cuid())
+  title    String
+  content  String
+  lesson   Lesson? @relation(fields: [lessonId], references: [id])
+  lessonId String?
+}
+
 model Section {
   id       String  @id @default(cuid())
-  name     String
+  title    String
+  content  String
+  lesson   Lesson? @relation(fields: [lessonId], references: [id])
+  lessonId String?
+}
+
+model Quest {
+  id       String  @id @default(cuid())
+  title    String
+  content  String
+  lesson   Lesson? @relation(fields: [lessonId], references: [id])
+  lessonId String?
+}
+
+model Challenge {
+  id       String  @id @default(cuid())
+  title    String
   content  String
   lesson   Lesson? @relation(fields: [lessonId], references: [id])
   lessonId String?
 }
 
 model Lesson {
-  id         String     @id @default(cuid())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id         String           @id @default(cuid())
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
   type       LessonEnum
   name       String
   sections   Section[]
-  resources  Resource[]
-  quests     String[]
-  challenges String[]
+  resources  LessonResource[]
+  quests     Quest[]
+  challenges Challenge[]
   bounties   String[]
-  project    Project?   @relation(fields: [projectId], references: [id])
+  project    Project?         @relation(fields: [projectId], references: [id])
   projectId  String?
 }
 

@@ -5,8 +5,17 @@ export const getProjectById = gql`
     getProjectById(id: $id) {
       id
       name
-      description
       logo
+      lessons {
+        id
+        name
+        type
+        challenges { id title content}
+        quests { id title content}
+        resources { id title content}
+        sections { id title content}
+      }
+      description
       token {
         id
         name

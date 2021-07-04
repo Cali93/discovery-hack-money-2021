@@ -1,8 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from './user.model';
 import { BaseModel } from './base.model';
 import { Category } from './category.model';
-import { Decimal } from '@prisma/client/runtime';
+import { Lesson } from './lesson.model';
 
 @ObjectType()
 class Token {
@@ -20,6 +19,7 @@ export class Project extends BaseModel {
   twitter?: string;
   github?: string;
   logo?: string;
+  lessons: Lesson[];
   categories: Category[];
   tokenId?: string;
   token?: Token;

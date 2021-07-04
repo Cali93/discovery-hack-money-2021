@@ -35,6 +35,18 @@ type Category {
   updatedAt: Date!
 }
 
+type Challenge {
+  content: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  id: ID!
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
+
 input ChangePasswordInput {
   newPassword: String!
   oldPassword: String!
@@ -49,6 +61,45 @@ input CreateResourceInput {
 
 """Date custom scalar type"""
 scalar Date
+
+type Lesson {
+  bounties: [String!]!
+  challenges: [Challenge!]!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  id: ID!
+  name: String!
+  project: Project!
+  projectId: String
+  quests: [Quest!]!
+  resources: [LessonResource!]!
+  sections: [Section!]!
+  type: LessonEnum!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
+
+"""
+Branched = theorical lessons and Decrypted = technical hands on lessons
+"""
+enum LessonEnum {
+  BRANCHED
+  DECRYPTED
+}
+
+type LessonResource {
+  content: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  id: ID!
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
 
 input LogoutInput {
   accessToken: String!
@@ -89,6 +140,7 @@ type Project {
   description: String!
   github: String
   id: ID!
+  lessons: [Lesson!]!
   logo: String
   name: String!
   token: Token
@@ -110,6 +162,18 @@ type Query {
   publishedResources(after: String, before: String, first: Int, last: Int, orderBy: ResourceOrder, query: String, skip: Int): ResourceConnection!
   resource(resourceId: String!): Resource!
   userResources(userId: String!): [Resource!]!
+}
+
+type Quest {
+  content: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  id: ID!
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
 }
 
 type Resource {
@@ -157,6 +221,18 @@ enum Role {
   ADMIN
   CREATOR
   USER
+}
+
+type Section {
+  content: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  id: ID!
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
 }
 
 input SignupInput {

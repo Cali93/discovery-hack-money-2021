@@ -41,7 +41,6 @@ Table Resource {
   author User
   authorId String [not null]
   projects Project [not null]
-  lessons Lesson [not null]
 }
 
 Table Category {
@@ -130,9 +129,33 @@ Table DeveloperDoc {
   projectId String
 }
 
+Table LessonResource {
+  id String [pk]
+  title String [not null]
+  content String [not null]
+  lesson Lesson
+  lessonId String
+}
+
 Table Section {
   id String [pk]
-  name String [not null]
+  title String [not null]
+  content String [not null]
+  lesson Lesson
+  lessonId String
+}
+
+Table Quest {
+  id String [pk]
+  title String [not null]
+  content String [not null]
+  lesson Lesson
+  lessonId String
+}
+
+Table Challenge {
+  id String [pk]
+  title String [not null]
   content String [not null]
   lesson Lesson
   lessonId String
@@ -145,9 +168,9 @@ Table Lesson {
   type LessonEnum [not null]
   name String [not null]
   sections Section [not null]
-  resources Resource [not null]
-  quests String [not null]
-  challenges String [not null]
+  resources LessonResource [not null]
+  quests Quest [not null]
+  challenges Challenge [not null]
   bounties String [not null]
   project Project
   projectId String
@@ -160,11 +183,6 @@ Table PersonToProject {
 
 Table ProjectToResource {
   projectsId String [ref: > Project.id]
-  resourcesId String [ref: > Resource.id]
-}
-
-Table LessonToResource {
-  lessonsId String [ref: > Lesson.id]
   resourcesId String [ref: > Resource.id]
 }
 
@@ -209,6 +227,12 @@ Ref: Project.projectCompetitorId > Project.id
 
 Ref: DeveloperDoc.projectId > Project.id
 
+Ref: LessonResource.lessonId > Lesson.id
+
 Ref: Section.lessonId > Lesson.id
+
+Ref: Quest.lessonId > Lesson.id
+
+Ref: Challenge.lessonId > Lesson.id
 
 Ref: Lesson.projectId > Project.id

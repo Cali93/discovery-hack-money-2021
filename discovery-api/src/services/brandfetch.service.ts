@@ -19,7 +19,8 @@ export class BrandfetchService {
           'x-api-key': apiKey
         }
       }).toPromise();
-      return data.response.icon.image;
+      console.log({data})
+      return data.response.logo?.image || data.response.icon?.image;
     } catch (error) {
       console.log(error);
       throw error;

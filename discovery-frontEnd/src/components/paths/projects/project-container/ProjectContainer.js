@@ -34,12 +34,13 @@ export default function ProjectContainer() {
     textDecoration: 'none', color: 'inherit', border: '#c9c9cc 2px solid', width: '250px', height: '50px'
   };
 
-
   if (loading) return <h2 style={{ paddingTop: '3rem', minHeight: '600px' }}>Loading...</h2>;
   if (error) return <p>Error :(</p>;
   if (data?.getProjectById) {
     console.log('data', data)
   }
+
+  const sectionItems = data?.getProjectById?.lessons.find((lesson) => lesson.type === 'BRANCHED')?.sections
 
   return (
     <>
@@ -96,13 +97,13 @@ export default function ProjectContainer() {
             navItems={
               isDecrypted
                 ? <DecryptedNavItems history={history} match={match} />
-                : <MainNavItems history={history} match={match} />
+                : <MainNavItems history={history} match={match} sectionItems={sectionItems.map(section => section.title)} />
             }
             isOpen={true}
             classes={classes} />
         </Grid>
         <Grid item xs={12} sm={10} align="left" style={{ paddingLeft: '30px' }}>
-          <LessonRoutes />
+          <LessonRoutes sections={sectionItems} />
         </Grid>
       </Grid>
     </>

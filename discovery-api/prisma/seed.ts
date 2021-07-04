@@ -1,10 +1,12 @@
 import * as dotenv from 'dotenv';
 import pgFormat from 'pg-format';
-import { Category, PrismaClient, Project } from '@prisma/client';
+import { Lesson, PrismaClient, Project, Resource, Section } from '@prisma/client';
 import { HttpService } from '@nestjs/common';
 import { getEverestCategoriesQuery } from '../src/graphql/everest/everest-categories';
 import { getEverestProjectsQuery } from '../src/graphql/everest/everest-project';
 import { PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID } from '../src/common/constants';
+import { LessonEnum } from '../src/models/lesson.model';
+import { lesson88mph } from './seeds/lessons';
 
 type ProjectWithCategoryIds = Project & { categories: string[] };
 const prisma = new PrismaClient();
@@ -90,11 +92,42 @@ async function main() {
     data: projectCategoryRelations,
     skipDuplicates: true
   })
-
-  const lessons = {
-
-  }
   console.log(linkProjectsToCategories)
+
+  const created88mphLesson = await prisma.lesson.create({
+    data: lesson88mph
+  });
+  const link88mphLessonToProject = await prisma.project.update({
+    where: {
+      id: "0x4d185e527160567328126b42239dc69d734fd7e6"
+    },
+    data: {
+      lessons: {
+        connect: {
+          id: created88mphLesson.id
+        }
+      }
+    }
+  });
+
+  // const createdPolygon = await prisma.lesson.create({
+  //   data: flashBotsLesson
+  // });
+  // const flashBotsLessonToProject = await prisma.project.update({
+  //   where: {
+  //     id: "0x4d185e527160567328126b42239dc69d734fd7e6"
+  //   },
+  //   data: {
+  //     lessons: {
+  //       connect: {
+  //         id: created88mphLesson.id
+  //       }
+  //     }
+  //   }
+  // });
+
+  console.log({created88mphLesson})
+  console.log({ link88mphLessonToProject })
 
   // TODO: format Matic to Polygon
 }

@@ -65,6 +65,14 @@ export class ProjectRepository {
             category: true
           }
         },
+        lessons: {
+          include: {
+            challenges: true,
+            resources: true,
+            quests: true,
+            sections: true
+          }
+        },
         competitors: true
       }
     })
@@ -78,12 +86,14 @@ export class ProjectRepository {
 
     if (projectWithFormattedCategories.tokenId){
       const projectWithTokenPrice = await this.univ2.getUniswapTokensUSDTPairs([projectWithFormattedCategories.tokenId]);
-      const projectLogo = await this.brandfetch.getProjectLogo(projectWithFormattedCategories.website)
+      console.log({ tId: projectWithFormattedCategories.tokenId, projectWithTokenPrice})
+      // const projectLogo = await this.brandfetch.getProjectLogo(projectWithFormattedCategories.website)
       const projectTokenDetails = projectWithTokenPrice.find(pair => pair.token0.id === project.tokenId)
+      console.log({projectTokenDetails})
       if (!projectTokenDetails) return project;
       return {
         ...project,
-        logo: projectLogo,
+        // logo: projectLogo,
         token: {
           id: projectTokenDetails.token0.id,
           name: projectTokenDetails.token0.name,

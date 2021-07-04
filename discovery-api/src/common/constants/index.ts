@@ -8,5 +8,6 @@ export const PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID = new Map([
   ["Matic", "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"],
   ["Tether", "0xdac17f958d2ee523a2206206994597c13d831ec7"],
   ["Akropolis", "0x8ab7404063ec4dbcfd4598215992dc3f8ec853d7"],
+  ["Wrapped Ether", "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"],
   ["Metamask", ""]
 ]);
