@@ -2,6 +2,7 @@ export interface Config {
   nest: NestConfig;
   everest: EverestConfig;
   uniswap: UniswapConfig;
+  brandfetch: BrandFetchConfig;
   cors: CorsConfig;
   swagger: SwaggerConfig;
   graphql: GraphqlConfig;
@@ -14,6 +15,10 @@ export interface NestConfig {
 
 export interface EverestConfig {
   apiUrl: string;
+}
+export interface BrandFetchConfig {
+  apiUrl: string;
+  apiKey: string;
 }
 export interface UniswapConfig {
   apiUrl: {

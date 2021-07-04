@@ -130,19 +130,21 @@ Table DeveloperDoc {
   projectId String
 }
 
+Table Section {
+  id String [pk]
+  name String [not null]
+  content String [not null]
+  lesson Lesson
+  lessonId String
+}
+
 Table Lesson {
   id String [pk]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   type LessonEnum [not null]
   name String [not null]
-  description String [not null]
-  introduction String [not null]
-  useCases String [not null]
-  mechanisms String [not null]
-  tokenomics String [not null]
-  strengths String [not null]
-  weaknesses String [not null]
+  sections Section [not null]
   resources Resource [not null]
   quests String [not null]
   challenges String [not null]
@@ -206,5 +208,7 @@ Ref: Project.parentProjectId > Project.id
 Ref: Project.projectCompetitorId > Project.id
 
 Ref: DeveloperDoc.projectId > Project.id
+
+Ref: Section.lessonId > Lesson.id
 
 Ref: Lesson.projectId > Project.id

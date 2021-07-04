@@ -2,12 +2,13 @@ import { PubSub } from 'graphql-subscriptions/';
 import { Injectable, UseGuards } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UniswapV2Service } from '../../services/uniswap-v2.service';
+import { BrandfetchService } from '../../services/brandfetch.service';
 
 const pubSub = new PubSub();
 
 @Injectable()
 export class ProjectRepository {
-  constructor(private prisma: PrismaService, private univ2: UniswapV2Service) {}
+  constructor(private prisma: PrismaService, private univ2: UniswapV2Service, private brandfetch: BrandfetchService) {}
   async getDeFiProjects() {
     const projects = await this.prisma.project.findMany({
       where: {
@@ -54,9 +55,9 @@ export class ProjectRepository {
     return projectsWithTokenData;
   }
   async getProjectById(id: string) {
-    const project = await this.prisma.project.findUnique({
+    const project = await this.prisma.project.findFirst({
       where: {
-        id,
+        id
       },
       include: {
         categories: {
@@ -75,19 +76,24 @@ export class ProjectRepository {
       categories: project.categories.map(({ category}) => category)
     }
 
-    const projectWithTokenPrice = await this.univ2.getUniswapTokensUSDTPairs([projectWithFormattedCategories.tokenId]);
-
-    const projectTokenDetails = projectWithTokenPrice.find(pair => pair.token0.id === project.tokenId)
-    if (!projectTokenDetails) return project;
-    return {
-      ...project,
-      token: {
-        id: projectTokenDetails.token0.id,
-        name: projectTokenDetails.token0.name,
-        symbol: projectTokenDetails.token0.symbol,
-        tradeVolume: projectTokenDetails.token0.tradeVolume,
-        priceUSDT: projectTokenDetails.token1Price
+    if (projectWithFormattedCategories.tokenId){
+      const projectWithTokenPrice = await this.univ2.getUniswapTokensUSDTPairs([projectWithFormattedCategories.tokenId]);
+      const projectLogo = await this.brandfetch.getProjectLogo(projectWithFormattedCategories.website)
+      const projectTokenDetails = projectWithTokenPrice.find(pair => pair.token0.id === project.tokenId)
+      if (!projectTokenDetails) return project;
+      return {
+        ...project,
+        logo: projectLogo,
+        token: {
+          id: projectTokenDetails.token0.id,
+          name: projectTokenDetails.token0.name,
+          symbol: projectTokenDetails.token0.symbol,
+          tradeVolume: projectTokenDetails.token0.tradeVolume,
+          priceUSDT: projectTokenDetails.token1Price
+        }
       }
+
     }
+    return project;
   }
 }

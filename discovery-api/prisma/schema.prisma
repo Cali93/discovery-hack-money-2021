@@ -146,26 +146,27 @@ model DeveloperDoc {
   projectId String?
 }
 
+model Section {
+  id       String  @id @default(cuid())
+  name     String
+  content  String
+  lesson   Lesson? @relation(fields: [lessonId], references: [id])
+  lessonId String?
+}
+
 model Lesson {
-  id           String     @id @default(cuid())
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  type         LessonEnum
-  name         String
-  description  String
-  introduction String
-  // TODO: use case entity to track projects by use-case
-  useCases     String[]
-  mechanisms   String
-  tokenomics   String
-  strengths    String[]
-  weaknesses   String[]
-  resources    Resource[]
-  quests       String[]
-  challenges   String[]
-  bounties     String[]
-  project      Project?   @relation(fields: [projectId], references: [id])
-  projectId    String?
+  id         String     @id @default(cuid())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  type       LessonEnum
+  name       String
+  sections   Section[]
+  resources  Resource[]
+  quests     String[]
+  challenges String[]
+  bounties   String[]
+  project    Project?   @relation(fields: [projectId], references: [id])
+  projectId  String?
 }
 
 enum Role {

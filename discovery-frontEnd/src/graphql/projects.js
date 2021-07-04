@@ -6,6 +6,7 @@ export const getProjectById = gql`
       id
       name
       description
+      logo
       token {
         id
         name

@@ -7,6 +7,10 @@ const config: Config = {
   everest:{
     apiUrl: process.env.EVEREST_SUBGRAPH_API_URL
   },
+  brandfetch:{
+    apiUrl: process.env.BRAND_FETCH_API_URL,
+    apiKey: process.env.BRAND_FETCH_API_KEY
+  },
   uniswap:{
     apiUrl: {
       v2: process.env.UNISWAP_V2_SUBGRAPH_API_URL

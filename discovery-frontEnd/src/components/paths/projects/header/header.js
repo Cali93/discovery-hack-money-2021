@@ -10,7 +10,7 @@ import websiteImg from './../../../../img/website.png';
 import discordImg from './../../../../img/discord.png';
 
 
-export default function Header({ logo, banner, name, description, token }) {
+export default function Header({ id, logo, banner, name, description, token }) {
   const classes = headerStyles();
   return (
     <div className={classes.root} >
@@ -18,12 +18,17 @@ export default function Header({ logo, banner, name, description, token }) {
         <Grid item xs={6} sm={3}>
           <img src={logo || polygonImg} alt="polygon" className={classes.logo} />
         </Grid>
-        <Grid item xs={4} sm={2} align="left" style={{ marginLeft: '-15px' }}>
+        <Grid item xs={6} sm={4} align="left" style={{ marginLeft: '-15px' }}>
           <h2>{name}</h2>
           <p>{description}</p>
-          <p>Contract address: {token.id}</p>
+          {token?.id && (
+            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+              <p style={{marginBottom: 0}}>Contract address:</p>
+              <a style={{textDecoration: 'none', color: '#b4f8c8'}} href={`https://etherscan.io/address/${token.id}`}>{token.id}</a>
+            </div>
+          )}
         </Grid>
-        <Grid item xs={12} sm={7} >
+        <Grid item xs={10} sm={5} >
           <Grid container direction="row" alignItems="flex-end" justify="flex-end" >
             <Grid item align="center">
               <img src={githubImg} alt="github" className={classes.icons} />
@@ -34,11 +39,13 @@ export default function Header({ logo, banner, name, description, token }) {
             </Grid>
           </Grid>
           <br />
-          <Grid item align="right" style={{paddingRight: '20px'}}>
-            <p>Symbol: {token.symbol}</p>
-            <p>{token.symbol} / USDT: {token.priceUSDT}</p>
-            <p>Traded volume: {token.tradeVolume}</p>
-          </Grid>
+          {token?.id && (
+            <Grid item align="right" style={{ paddingRight: '20px' }}>
+              <p>Symbol: {token.symbol}</p>
+              <p>{token.symbol} / USDT: {token.priceUSDT}</p>
+              <p>Trade volume: {token.tradeVolume}</p>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </div >

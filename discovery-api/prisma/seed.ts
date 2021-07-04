@@ -90,6 +90,10 @@ async function main() {
     data: projectCategoryRelations,
     skipDuplicates: true
   })
+
+  const lessons = {
+
+  }
   console.log(linkProjectsToCategories)
 
   // TODO: format Matic to Polygon

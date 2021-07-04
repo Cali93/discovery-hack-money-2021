@@ -43,7 +43,7 @@ export default function ProjectContainer() {
 
   return (
     <>
-      <Header name={data.getProjectById.name} description={data.getProjectById.description} logo={data.getProjectById.logo} token={data.getProjectById.token} />
+      <Header id={data.getProjectById.id} name={data.getProjectById.name} description={data.getProjectById.description} logo={data.getProjectById.logo} token={data.getProjectById.token} />
       {/* Buttons Gruop for branched, decrypted & Enrolled  */}
       <Grid container className={classes.gridContainer} >
         <Grid item xs={12} sm={6} style={{ display: 'flex' }}>
