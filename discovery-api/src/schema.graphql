@@ -140,6 +140,7 @@ type Project {
   description: String!
   github: String
   id: ID!
+  isFeatured: Boolean!
   lessons: [Lesson!]!
   logo: String
   name: String!

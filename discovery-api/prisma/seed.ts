@@ -6,7 +6,7 @@ import { getEverestCategoriesQuery } from '../src/graphql/everest/everest-catego
 import { getEverestProjectsQuery } from '../src/graphql/everest/everest-project';
 import { PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID } from '../src/common/constants';
 import { LessonEnum } from '../src/models/lesson.model';
-import { lesson88mph } from './seeds/lessons';
+import { akropolisLesson, lesson88mph, polygonBranchedLesson } from './seeds/lessons';
 
 type ProjectWithCategoryIds = Project & { categories: string[] };
 const prisma = new PrismaClient();
@@ -86,7 +86,7 @@ async function main() {
         }
         return [...currentProjectCategoryRels, { projectId: project.id, categoryId: catId }]
       }, [])
-  ).flat()
+  ).flat().filter((v,i,a)=>a.findIndex(t=>(t.categoryId === v.categoryId && t.projectId===v.projectId))===i)
 
   const linkProjectsToCategories = await prisma.projectCategories.createMany({
     data: projectCategoryRelations,
@@ -109,6 +109,36 @@ async function main() {
       }
     }
   });
+  const createdPolygonBranchedLesson = await prisma.lesson.create({
+    data: polygonBranchedLesson
+  });
+  const linkPolygonBranchedLessonToProject = await prisma.project.update({
+    where: {
+      id: "0x8b3e91b60525fc9159fe74e29b12090b4e919698"
+    },
+    data: {
+      lessons: {
+        connect: {
+          id: createdPolygonBranchedLesson.id
+        }
+      }
+    }
+  });
+  const createdAkropolisLesson = await prisma.lesson.create({
+    data: akropolisLesson
+  });
+  const linkAkropolisLessonToProject = await prisma.project.update({
+    where: {
+      id: "0xd9d7af09ece0acd475e32b7b34b98cd0a612ef09"
+    },
+    data: {
+      lessons: {
+        connect: {
+          id: createdAkropolisLesson.id
+        }
+      }
+    }
+  });
 
   // const createdPolygon = await prisma.lesson.create({
   //   data: flashBotsLesson
@@ -127,7 +157,7 @@ async function main() {
   // });
 
   console.log({created88mphLesson})
-  console.log({ link88mphLessonToProject })
+  console.log({ link88mphLessonToProject, linkPolygonBranchedLessonToProject, linkAkropolisLessonToProject })
 
   // TODO: format Matic to Polygon
 }

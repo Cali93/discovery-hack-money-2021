@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 import { toKebabCase } from '../../../../utils';
 
 const LessonRoutes = ({ sections }) => {
@@ -9,9 +10,17 @@ const LessonRoutes = ({ sections }) => {
         {sections.map((section) => {
           console.log(section.content);
           return (
-            <Route key={section.id} exact path={`/project/:id/${toKebabCase(section.title)}`} render={() => (
-              <div dangerouslySetInnerHTML={{__html: section.content}} />
-            )}/>
+            <Route key={section.id} exact path={`/project/:id/${toKebabCase(section.title)}`} render={() => section.title !== 'YouTube' ? (
+              <>
+              <Typography variant="h4">{section.title}</Typography>
+              <div style={{paddingRight: '20px'}} dangerouslySetInnerHTML={{__html: section.content}} />
+              </>
+            ) : (
+              <>
+              <Typography variant="h4">{section.title}</Typography>
+              <iframe width="800" height="500" src={section.content} title={section.title} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </>
+              )}/>
           )
         })}
         {/* <Route exact path="/project/:id/dashboard-metrics" component={DashboardMetrics} />

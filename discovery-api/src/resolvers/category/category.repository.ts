@@ -24,6 +24,7 @@ export class CategoryRepository {
               }
             },
             projects: {
+              distinct: ['projectId'],
               include: {
                 project: true
               }
@@ -31,6 +32,7 @@ export class CategoryRepository {
           }
         },
         projects: {
+          distinct: 'projectId',
           include: {
             project: true
           }

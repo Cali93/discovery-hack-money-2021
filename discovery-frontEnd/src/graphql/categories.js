@@ -8,6 +8,7 @@ export const getCategories = gql`query {
     projects {
       id
       name
+      isFeatured
       description
     }
     subcategories {

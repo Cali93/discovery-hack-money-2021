@@ -40,7 +40,7 @@ export default function ProjectContainer() {
     console.log('data', data)
   }
 
-  const sectionItems = data?.getProjectById?.lessons.find((lesson) => lesson.type === 'BRANCHED')?.sections
+  const {sections, resources, quests, challenges } = data?.getProjectById?.lessons.find((lesson) => lesson.type === 'BRANCHED')
 
   return (
     <>
@@ -97,13 +97,13 @@ export default function ProjectContainer() {
             navItems={
               isDecrypted
                 ? <DecryptedNavItems history={history} match={match} />
-                : <MainNavItems history={history} match={match} sectionItems={sectionItems.map(section => section.title)} />
+                : <MainNavItems history={history} match={match} sectionItems={[...sections, ...resources, ...quests, ...challenges].map(section => section.title)} />
             }
             isOpen={true}
             classes={classes} />
         </Grid>
         <Grid item xs={12} sm={10} align="left" style={{ paddingLeft: '30px' }}>
-          <LessonRoutes sections={sectionItems} />
+          <LessonRoutes sections={[...sections, ...resources, ...quests, ...challenges]} />
         </Grid>
       </Grid>
     </>

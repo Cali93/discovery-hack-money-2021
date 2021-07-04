@@ -6,6 +6,7 @@ export const getProjectById = gql`
       id
       name
       logo
+      isFeatured
       lessons {
         id
         name

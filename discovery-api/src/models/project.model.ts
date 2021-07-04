@@ -17,6 +17,7 @@ export class Project extends BaseModel {
   name: string;
   description: string;
   website: string;
+  isFeatured: boolean;
   twitter?: string;
   github?: string;
   logo?: string;
