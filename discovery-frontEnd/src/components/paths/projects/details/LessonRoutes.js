@@ -1,21 +1,16 @@
 import React from 'react';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { toKebabCase } from '../../../../utils';
-import ReactMarkdown from 'markdown-to-jsx';
 
 const LessonRoutes = ({ sections }) => {
   return (
-    <div style={{maxWidth: '100%'}}>
+    <div>
       <Switch>
         {sections.map((section) => {
           console.log(section.content);
           return (
             <Route key={section.id} exact path={`/project/:id/${toKebabCase(section.title)}`} render={() => (
-              <div>
-                <ReactMarkdown>
-                  {section.content}
-                </ReactMarkdown>
-              </div>
+              <div dangerouslySetInnerHTML={{__html: section.content}} />
             )}/>
           )
         })}

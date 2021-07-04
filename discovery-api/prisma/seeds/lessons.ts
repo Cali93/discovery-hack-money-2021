@@ -17,24 +17,35 @@ export  const lesson88mph ={
         The governance process of 88mph works by having users signal their preferences with their MPH tokens on various proposals ranging from **protocol parameters*** to smart ways of using the capital assets stored in the treasury for creating new incentives, capitalization, and at the end growth. The 88mph community can vote on 8IP - 88mph Improvement Protocol - proposals using their staked MPH as their vote's weighting.`
       }, {
         title: "88mph Main Products",
-        content: `88mph has **6 main products**. For detailed information about the products and their use cases and risks please complete lessons until lesson 5th.
-
-        1. **Fixed-interest rate bonds**
-        A Fixed-Interest Rate Bond or FIRB represents the capital deposited by someone into 88mph to generate fixed-rate interests over a predetermined period of time.
-        2. **Zero Coupon Bond**
-        Zero-coupon bonds (ZCB) are bonds trading at a discount, that can be redeemed for their full face value
-        when they become mature on a certain date (Investopedia).
-        For example, if you purchased a zero-coupon bond for $900 with a $1,000 face value that matures in 1 year,
-        it means that after 1 year, you will be able to redeem the full face value of the bond: $1,000, in other words, an annualized yield of 10%.
-        In the context of 88mph, zero-coupon bonds are ERC20 tokens that wrap around fixed-interest rate deposits. Anyone can mint a ZCB using a FIRB, and trade it. They are 1-for-1 redeemable for the underlying token (e.g. UNI) upon maturation of the underlying FIRBs.
-        3. **Floating Rate Bonds**
-        The Floating-Rate Bond (FRB) allows users to fund the debt created by the Fixed-Interest Rate Bonds (FIRB). The debt is the fixed-interest rate promised to FIRB holders. You will earn the floating-interest rate offered by the underlying protocol (Compound, Aave, etc, used to generate the FIRB's yield) on the debt-funded and the FIRB initial deposit. Also, you'll earn some MPH rewards as an FRB holder.
-        4. **Structured Products**
-        Not implemented yet.
-        5. **Security and Audits**
-        Not implemented yet.
-        6. **88mph v3**
-        Not implemented yet`
+        content: `<h5>88mph has 6 main products. For detailed information about the products and their use cases and risks please complete lessons until lesson 5th.</h5>
+        <ol>
+        <li> Fixed-interest rate bonds
+                A Fixed-Interest Rate Bond or FIRB represents the capital deposited by someone into 88mph
+                to generate fixed-rate interests over a predetermined period of time.
+        </li>
+        <li> Zero Coupon Bond
+                Zero-coupon bonds (ZCB) are bonds trading at a discount, that can be redeemed for their
+                full face value when they become mature on a certain date (Investopedia).
+                For example, if you purchased a zero-coupon bond for $900 with a $1,000 face value
+                that matures in 1 year, it means that after 1 year, you will be able to redeem the full face value
+                of the bond: $1,000, in other words, an annualized yield of 10%.
+                In the context of 88mph, zero-coupon bonds are ERC20 tokens that wrap around fixed-interest rate deposits.
+                Anyone can mint a ZCB using a FIRB, and trade it. They are 1-for-1 redeemable for
+                the underlying token (e.g. UNI) upon maturation of the underlying FIRBs.
+        </li>
+        <li>Floating Rate Bonds
+                The Floating-Rate Bond (FRB) allows users to fund the debt created by the Fixed-Interest Rate Bonds (FIRB).
+                The debt is the fixed-interest rate promised to FIRB holders. You will earn the floating-interest rate offered
+                by the underlying protocol (Compound, Aave, etc, used to generate the FIRB's yield) on the debt-funded and
+                the FIRB initial deposit. Also, you'll earn some MPH rewards as an FRB holder.
+        </li>
+        <li> Structured Products
+                Not implemented yet.</li>
+                <li> Security and Audits
+                Not implemented yet.</li>
+                <li> 88mph v3
+                Not implemented yet</li>
+        </ol>`
       }, {
         title: "How to Use 88MPH",
         content: `
