@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { toKebabCase } from '../../../../utils';
 import ReactMarkdown from 'markdown-to-jsx';
 
@@ -30,7 +30,7 @@ const LessonRoutes = ({ sections }) => {
         <Route exact path="/project/:id/security-audit" component={SecurityAudit} />
         <Route exact path="/project/:id/mphv3" component={Mphv3} /> */}
 
-        {/* <Redirect from="/project/:id" to="/project/:id/dashboard-metrics" exact /> */}
+        <Redirect from="/project/:id" to="/project/:id/introduction" exact />
       </Switch>
     </div>
   )
