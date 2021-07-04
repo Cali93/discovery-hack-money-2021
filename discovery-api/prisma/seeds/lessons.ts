@@ -189,26 +189,27 @@ export const polygonBranchedLesson = {
     createMany: {
       data: [{
         title: "Introduction",
-        content: `Polygon offers a great scaling solution as it offers EVM-compatible sidechains to any Dapp with the ability to deploy on it.
+        content: `
+        <p>Polygon offers a great scaling solution as it offers EVM-compatible sidechains to any Dapp with the ability to deploy on it.</p>
 
-        Scaling solutions such as these have been the topic of much research since the invention of Ethereum, as it was always known that the EVM would simply not be able to keep up with the amount of users flooding the network every second.
+        <p>Scaling solutions such as these have been the topic of much research since the invention of Ethereum, as it was always known that the EVM would simply not be able to keep up with the amount of users flooding the network every second.</p>
 
-        According to Polygon, these blockchains offer the benefits of a private network such as the speed and flexibility, as well as the benefits of the Mainnet like security and interoperability.`
+        <p>According to Polygon, these blockchains offer the benefits of a private network such as the speed and flexibility, as well as the benefits of the Mainnet like security and interoperability.</p>`
       }, {
         title: "Technologies",
-        content: `Polygon uses two main technologies for its different ways to secure Layer 2, and has plans to add many more.
+        content: `<p>Polygon uses two main technologies for its different ways to secure Layer 2, and has plans to add many more.</p>
 
-        Currently, the Secured Chains are operating on the Matic Plasma protocol, while the stand-alone chains are currently using Polygon’s POS consensus protocol.
+        <p>Currently, the Secured Chains are operating on the Matic Plasma protocol, while the stand-alone chains are currently using Polygon’s POS consensus protocol.</p>
 
-        These technologies ensure that the Dapp deployed on Polygon’s Layer 2 maintains the same immutability and security on the network that it would have if it were deployed on the mainnet.`
+        <p>These technologies ensure that the Dapp deployed on Polygon’s Layer 2 maintains the same immutability and security on the network that it would have if it were deployed on the mainnet.</p>`
       }, {
         title: "Layer 2",
-        content: `The scaling solution that Polygon provides is possibly invaluable to anyone who was trying to use the network shortly after the price of Ether rose to all time highs.
+        content: `<p>The scaling solution that Polygon provides is possibly invaluable to anyone who was trying to use the network shortly after the price of Ether rose to all time highs.</p>
 
-        At the same time, the network was fully congested, and people were finding out that they had spent upwards of thousands of dollars in gas fees to get their transactions through.
-        Polygon offers two scaling solutions for those who would like to utilize layer 2: A secured chain using the Plasma solution, and a dedicated Matic sidechain.
+        <p>At the same time, the network was fully congested, and people were finding out that they had spent upwards of thousands of dollars in gas fees to get their transactions through.
+        Polygon offers two scaling solutions for those who would like to utilize layer 2: A secured chain using the Plasma solution, and a dedicated Matic sidechain.</p>
 
-        The secured chains are still verified and secured by either the Ethereum mainnet or a trusted validator, while the dedicated sidechains must have their own validators for the chain. Both of these solutions have significantly helped scale DeFi, and greatly contributed to the health of the Ethereum network.`
+        <p>The secured chains are still verified and secured by either the Ethereum mainnet or a trusted validator, while the dedicated sidechains must have their own validators for the chain. Both of these solutions have significantly helped scale DeFi, and greatly contributed to the health of the Ethereum network.</p>`
       }, {
         title: "Best Projects",
         content: `
@@ -232,28 +233,36 @@ export const polygonBranchedLesson = {
       data: [{
         title: 'YouTube',
         content: 'https://www.youtube.com/embed/PKw0RTT1Hp4'
-      }, {
+      },  {
         title: 'Polygon projects',
-        content: 'https://www.block123.com/en/feature/polygon-matic-network-list/'
+        content: `
+        <ul>
+        <li><a href="https://www.block123.com/en/feature/polygon-matic-network-list/" target="_blank">List of projects using Polygon</a></li>
+        </ul>
+        `
       }, {
         title: 'Quick Links',
         content: `
         <ul>
-          <li><a href="https://docs.matic.network/">Docs</a></li>
-          <li><a href="https://polygon.technology/get-started/">Get started</a></li>
+          <li><a href="https://docs.matic.network/" target="_blank">Docs</a></li>
+          <li><a href="https://polygon.technology/get-started/" target="_blank">Get started</a></li>
         </ul>
         `
       }, {
         title: 'Tutorials',
         content: `
           <ul>
-            <li><a href='https://www.youtube.com/watch?v=IijtdpAtOt0'>Polygon Explained - Finematics</a></li>
-            <li><a href='https://www.youtube.com/watch?v=LAv_wpDVLlM'>Polygon MetaMask - MoneyZG</a></li>
+            <li><a href="https://www.youtube.com/watch?v=IijtdpAtOt0" target="_blank">Polygon Explained - Finematics</a></li>
+            <li><a href="https://www.youtube.com/watch?v=LAv_wpDVLlM" target="_blank">Polygon MetaMask - MoneyZG</a></li>
           </ul>
         `
       }, {
         title: 'Blog',
-        content: "https://blog.matic.network/"
+        content: `
+        <ul>
+        <li><a href="https://blog.matic.network/" target="_blank">Polygon Blog</a></li>
+        </ul>
+        `
       }]
     }
   },
@@ -261,7 +270,11 @@ export const polygonBranchedLesson = {
     createMany: {
       data: [{
         title: 'What is Matic ?',
-        content: 'https://gitcoin.co/quests/535/what-is-matic'
+        content: `
+        <ul>
+        <li><a href="https://gitcoin.co/quests/535/what-is-matic/" target="_blank">Gitcoin Quest</a></li>
+        </ul>
+        `
       }]
     }
   },
@@ -269,7 +282,127 @@ export const polygonBranchedLesson = {
     createMany: {
       data: [{
         title: "Let's cross the bridge !",
-        content: `<a href='https://docs.matic.network/docs/develop/wallets/matic-web-wallet/web-wallet-v2-guide/'>Move Funds from Ethereum to Matic</a>`
+        content: `<a href="https://docs.matic.network/docs/develop/wallets/matic-web-wallet/web-wallet-v2-guide/" target="_blank">Move Funds from Ethereum to Matic</a>`
+      }]
+    }
+  },
+  bounties: ["https://gitcoin.co/explorer?network=mainnet&idx_status=open&applicants=ALL&keywords=polygon&order_by=null"]
+}
+export const polygonDecryptedLesson = {
+  name: "Deploying on Polygon",
+  type: LessonEnum.DECRYPTED,
+  sections: {
+    createMany: {
+      data: [{
+        title: "Introduction",
+        content: `
+        <p>Polygon offers a great scaling solution as it offers EVM-compatible sidechains to any Dapp with the ability to deploy on it.</p>
+
+        <p>Scaling solutions such as these have been the topic of much research since the invention of Ethereum, as it was always known that the EVM would simply not be able to keep up with the amount of users flooding the network every second.</p>
+
+        <p>According to Polygon, these blockchains offer the benefits of a private network such as the speed and flexibility, as well as the benefits of the Mainnet like security and interoperability.</p>`
+      }, {
+        title: "Architecture",
+        content: `
+        <img src="https://lh4.googleusercontent.com/9OV5RNJbnuDLGbFLu6jHvRf0Uuq4KMKpRZQR9Gd0oBcgEAtNnqYa5luO5fZaEz5Xs-awPo2QNCu2wM_ib8DNdA9SsBGyWhUzq_GQbyd8qMImHQxwiwu54AalTm00cveRsYXCXnDK"/>
+
+        <h4>Ethereum Layer:</h4>
+        <p>Polygon chains are EVM compatible and use the Ethereum network for anything mission-critical. This layer addresses factors like finality, staking, and dispute resolving.</p>
+        <h4>Security Layer:</h4>
+        <p>This specialized layer is not mandatory, but runs alongside the Ethereum mainnet. This layer is composed of validators, and these validators will periodically check the validity of a Polygon chain for a fee.</p>
+
+        <h4>Polygon Networks Layer:</h4>
+        <p>This is a layer of sovereign Polygon networks, operating independently for whatever their intended purpose is. These networks can use Polygon protocol to exchange messages, establish a local consensus, and provide transaction collation.</p>
+
+        <h4>Execution Layer:</h4> <p>This is the layer that executes the code deployed onto Polygon, and it executes it either through smart contracts that transition the state of a specific Polygon network, or through the pluggable virtual machine Execution Environment.</p>
+`
+      },{
+        title: "Deploying on Polygon",
+        content:`
+        <h4>Remix:</h4>
+        <ol>
+        <li>Write Smart Contracts in Solidity and compile</li>
+        <li>Connect Metamask Custom RPC with Polygon Network (ChainId 137) or Polygon Mumbai Test Network (ChainId 80001)</li>
+        <li>Put Ether in your Metamask account connected to Remix</li>
+        <li>Change environment in Remix to Injected Web3 and verify it is on the correct Polygon network</li>
+        <li>Once Metamask Injected Web3 is connected, press deploy and accept the transaction.</li>
+        </ol>
+
+        <h4>Truffle:</h4>
+        <ol>
+        <li>Install Truffle</li>
+        <li>Open “truffle-config.js” and edit it to the Polygon credentials, as shown below: <img src="https://lh6.googleusercontent.com/HcNK2JptaohODlAh1ci9vmN21MZzXg14ZtvtPrn1MgvUVNgqJK9iY2VfkNA78a5OUc8-tgHrgx1fvMN2JOaVgmeSd-88L1VwpUDSKyaCXyV0cEWqSWHjmmpiuLnfh5uzAEp9_yao"/></li>
+        <li>Once in the directory with the contracts you mean to deploy, run “truffle migrate --network matic”</li>
+        <li>Contract will be deployed on Polygon’s Mumbai Testnet (Edit network credentials for Mainnet)</li>
+        </ol>
+        <h4>Hardhat:</h4>
+        <ol>
+        <li>Install Hardhat</li>
+        <li>Update “hardhat.config.js” with the Polygon network credentials, as shown below: <img src="https://lh5.googleusercontent.com/WpIGOzoLmuiRvAutY2LI_MX210m1d66SPAIeumr8GD5h16CRs1MGor1EUUUNp32gX5PySjbo4pbfwNvPCJrBtGO4YrHJhO61qPIgwHs1b4sM_vH_GEOpBzGZ1frmaggKFEnBJSYe"/></li>
+        <li>Create a .secret file in the root directory to store your private key</li>
+        <li>Run this command in the root of the project directory: “$ npx hardhat run scripts/sample-script.js --network matic”</li>
+        <li>Contract will be deployed on Polygon’s Mumbai Testnet (Edit network credentials for Mainnet)</li>
+        </ol>
+        `
+      }]
+    }
+  },
+  resources: {
+    createMany: {
+      data: [{
+        title: 'YouTube',
+        content: 'https://www.youtube.com/embed/PKw0RTT1Hp4'
+      }, {
+        title: 'Polygon projects',
+        content: `
+        <ul>
+        <li><a href="https://www.block123.com/en/feature/polygon-matic-network-list/" target="_blank">List of projects using Polygon</a></li>
+        </ul>
+        `
+      }, {
+        title: 'Quick Links',
+        content: `
+        <ul>
+          <li><a href="https://docs.matic.network/docs/develop/getting-started" target="_blank">Developer Docs</a></li>
+          <li><a href="https://polygon.technology/get-started/" target="_blank">Get started</a></li>
+        </ul>
+        `
+      }, {
+        title: 'Tutorials',
+        content: `
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=IijtdpAtOt0" target="_blank">Polygon Explained - Finematics</a></li>
+            <li><a href="https://docs.matic.network/docs/develop/pos-using-metamask" target="_blank">PoS Using Metamask</a></li>
+            <li><a href="https://docs.matic.network/docs/develop/plasma-using-metamask" target="_blank">Plasma Using Metamask</a></li>
+          </ul>
+        `
+      }, {
+        title: 'Blog',
+        content: `
+        <ul>
+        <li><a href="https://blog.matic.network/" target="_blank">Polygon Blog</a></li>
+        </ul>
+        `
+      }]
+    }
+  },
+  quests: {
+    createMany: {
+      data: [{
+        title: 'What is Matic ?',
+        content: `
+        <ul>
+        <li><a href="https://gitcoin.co/quests/535/what-is-matic/" target="_blank">Gitcoin Quest</a></li>
+        </ul>
+        `
+      }]
+    }
+  },
+  challenges: {
+    createMany: {
+      data: [{
+        title: "Deploy on Polygon",
+        content: `<a href="https://docs.matic.network/docs/develop/getting-started/" target="_blank">Deploy your dApp on Polygon</a>`
       }]
     }
   },
