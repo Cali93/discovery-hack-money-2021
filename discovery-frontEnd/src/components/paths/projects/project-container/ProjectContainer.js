@@ -19,10 +19,8 @@ import { Code } from '@material-ui/icons';
 export default function ProjectContainer() {
   const history = useHistory();
   const match = useRouteMatch();
-  console.log(match);
   const currentPath = history.location.pathname;
   const projectId = match.params.id
-  console.log({projectId});
   const isDecrypted = currentPath.includes('/decrypted');
   const classes = projectContainerStyles();
   const { loading, error, data } = useQuery(getProjectById, {
@@ -40,7 +38,8 @@ export default function ProjectContainer() {
     console.log('data', data)
   }
 
-  const {sections, resources, quests, challenges } = data?.getProjectById?.lessons.find((lesson) => lesson.type === 'BRANCHED')
+  const {sections, resources, quests, challenges } = data?.getProjectById?.lessons?.find((lesson) => lesson.type === 'BRANCHED')
+  const {sections: decryptedSections, resources: decryptedResources, quests: decryptedQuests, challenges: decryptedChallenges } = data?.getProjectById?.lessons?.find((lesson) => lesson.type === 'DECRYPTED')
 
   return (
     <>
@@ -96,14 +95,15 @@ export default function ProjectContainer() {
           <SideBar
             navItems={
               isDecrypted
-                ? <DecryptedNavItems history={history} match={match} />
+                ? <DecryptedNavItems history={history} match={match} sectionItems={[...decryptedSections, ...decryptedResources, ...decryptedQuests, ...decryptedChallenges].map(section => section.title)} />
                 : <MainNavItems history={history} match={match} sectionItems={[...sections, ...resources, ...quests, ...challenges].map(section => section.title)} />
             }
             isOpen={true}
             classes={classes} />
         </Grid>
         <Grid item xs={12} sm={10} align="left" style={{ paddingLeft: '30px' }}>
-          <LessonRoutes sections={[...sections, ...resources, ...quests, ...challenges]} />
+          <LessonRoutes key="branched" sections={[...sections, ...resources, ...quests, ...challenges]} />
+          <LessonRoutes key="decrypted" sections={[...decryptedSections, ...decryptedResources, ...decryptedQuests, ...decryptedChallenges]} isDecrypted={true} />
         </Grid>
       </Grid>
     </>

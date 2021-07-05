@@ -6,7 +6,7 @@ import { getEverestCategoriesQuery } from '../src/graphql/everest/everest-catego
 import { getEverestProjectsQuery } from '../src/graphql/everest/everest-project';
 import { PROJECTS_TO_LINK_WITH_UNI_TOKEN_ID } from '../src/common/constants';
 import { LessonEnum } from '../src/models/lesson.model';
-import { akropolisLesson, lesson88mph, polygonBranchedLesson } from './seeds/lessons';
+import { akropolisLesson, lesson88mph, polygonBranchedLesson, polygonDecryptedLesson } from './seeds/lessons';
 
 type ProjectWithCategoryIds = Project & { categories: string[] };
 const prisma = new PrismaClient();
@@ -124,6 +124,21 @@ async function main() {
       }
     }
   });
+  const createdPolygonDecryptedLesson = await prisma.lesson.create({
+    data: polygonDecryptedLesson
+  });
+  const linkPolygonDecryptedLessonToProject = await prisma.project.update({
+    where: {
+      id: "0x8b3e91b60525fc9159fe74e29b12090b4e919698"
+    },
+    data: {
+      lessons: {
+        connect: {
+          id: createdPolygonDecryptedLesson.id
+        }
+      }
+    }
+  });
   const createdAkropolisLesson = await prisma.lesson.create({
     data: akropolisLesson
   });
@@ -157,7 +172,7 @@ async function main() {
   // });
 
   console.log({created88mphLesson})
-  console.log({ link88mphLessonToProject, linkPolygonBranchedLessonToProject, linkAkropolisLessonToProject })
+  console.log({ link88mphLessonToProject, linkPolygonBranchedLessonToProject, linkAkropolisLessonToProject, linkPolygonDecryptedLessonToProject })
 
   // TODO: format Matic to Polygon
 }

@@ -1,10 +1,20 @@
 
 
 import { makeStyles } from '@material-ui/core/styles';
-
+import discovery from './discovery-home-page.png';
 export const bannerStyles = makeStyles(theme => ({
+  heroImage: {
+    backgroundImage: `url(${discovery})`,
+    backgroundColor: '#CCFCFF',
+    height: '900px',
+    backgroundPosition: 'center center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'contain',
+    position: 'relative',
+  },
   container: {
     // position: 'fixed',
+    backgroundImage: `url(./discovery-home-page.png)`
   },
   content: {
     backgroundColor: '#010d21',

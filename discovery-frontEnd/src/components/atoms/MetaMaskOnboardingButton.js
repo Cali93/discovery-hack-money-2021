@@ -20,7 +20,6 @@ export function MetaMaskOnboardingButton() {
   const [logout] = useMutation(logoutMutation);
   const handleLoginOrRegister = useCallback(
     async (newAccounts) => {
-      console.log('handling signup', user.accessToken, newAccounts);
       if (user.accessToken || loginData?.login?.accessToken){
         setButtonText(LOGOUT_TEXT)
       }
@@ -49,7 +48,7 @@ export function MetaMaskOnboardingButton() {
           }
         })
         if (logoutStatus.data.logout === 200){
-          store.persist.clear().then(() => {
+          await store.persist.clear().then(() => {
             setDisabled(false);
             setButtonText(CONNECT_TEXT);
           })

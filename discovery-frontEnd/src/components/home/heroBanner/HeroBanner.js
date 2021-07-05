@@ -1,14 +1,11 @@
 
 import React from 'react';
-import { Button } from '@material-ui/core';
 import { bannerStyles } from './heroBanner.styles';
-import { Link } from 'react-router-dom';
-
 export const HeroBanner = () => {
   const classes = bannerStyles();
   return (
-    <div className={classes.content}>
-      <div className={classes.container}>
+    <div className={classes.heroImage}>
+      {/* <div className={classes.container}>
 
         <div className={classes.flexContainer}>
           <div className={classes.flexChild}>
@@ -27,13 +24,13 @@ export const HeroBanner = () => {
           </div>
 
           <div className={classes.flexChild}>
-            <img src="https://github.githubassets.com/images/modules/site/home/globe.jpg" alt="Globe" className={classes.imageBanner} />
+            <img src="" alt="Globe" className={classes.imageBanner} />
           </div>
         </div>
 
 
 
-      </div>
+      </div> */}
 
     </div>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Card, CardActions, CardContent, Typography, Chip, Button, makeStyles, Avatar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import SubCategoryChip from '../../atoms/subcategory-chip';
+import { POLYGON_DESCRIPTION } from '../../../utils';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -33,10 +34,10 @@ export default function CardComponent({ id, name, description, projects, subcate
       <Card className={classes.card} style={{ boxShadow: isFeatured ? `0 0 2px #fff, 0 0 10px #fff, 0 0 20px #A0E7E5, 0 0 30px #0ba9ca` : null}}>
         <CardContent className={classes.cardContent}>
           <Typography variant="h4" color="textPrimary" gutterBottom>
-            {name}
+            {name.toLowerCase() === 'matic' ? 'Polygon' : name}
           </Typography>
           <Typography variant="body2" component="p" align="left">
-            {description}
+            {name.toLowerCase() === 'matic' ? POLYGON_DESCRIPTION : description}
             <br />
           </Typography>
           {hasSubcategories
